@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using CosmoTrack.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -10,6 +15,22 @@
     <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js"></script>
 </head>
 <body>
+    <nav>
+        @if (signInManager.IsSignedIn(User))
+        {
+            <div class="navbar-item">
+                <div class="buttons is-size-5">
+                    <p>
+                        Hey, @User.Claims.First(c => c.Type == "FullName").Value
+                        <span class="pad-left-xs pad-right-xs">|</span>
+                    </p>
+                    <a href="../Account/Logout" class="has-text-danger">
+                        Log out
+                    </a>
+                </div>
+            </div>
+        }
+    </nav>
     <div>
         @RenderBody()
     </div>

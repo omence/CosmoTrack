@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CosmoTrack.Models;
 using CosmoTrack.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -86,6 +87,13 @@ namespace CosmoTrack.Controllers
             ModelState.TryAddModelError(string.Empty, "Invalid Login Attempt");
 
             return View(lvm);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
