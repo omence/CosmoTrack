@@ -68,5 +68,24 @@ namespace CosmoTrack.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel lvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(lvm.Email);
+                   
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            ModelState.TryAddModelError(string.Empty, "Invalid Login Attempt");
+
+            return View(lvm);
+        }
     }
 }

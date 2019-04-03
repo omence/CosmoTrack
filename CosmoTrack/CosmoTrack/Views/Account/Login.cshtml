@@ -1,5 +1,7 @@
 ﻿@model CosmoTrack.Models.ViewModels.LoginViewModel
-
+@using Microsoft.AspNetCore.Identity
+@using CosmoTrack.Models
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     Layout = "_Layout";
 }
@@ -12,41 +14,41 @@
         </div>
     </div>
 </section>
-        <form method="post">
-            <div class="field">
-                <label asp-for="Email" class="label">Email</label>
-                <div class="control has-icons-left">
-                    <input asp-for="Email" class="input" type="email" placeholder="example@email.com" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="Email"></span>
-                </p>
-            </div>
+<form method="post">
+    <div class="field">
+        <label asp-for="Email" class="label">Email</label>
+        <div class="control has-icons-left">
+            <input asp-for="Email" class="input" type="email" placeholder="example@email.com" />
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+        </div>
+        <p class="help is-danger">
+            <span asp-validation-for="Email"></span>
+        </p>
+    </div>
 
-            <div class="field">
-                <label asp-for="Password" class="label">Password</label>
-                <div class="control has-icons-left">
-                    <input asp-for="Password" class="input" type="password" placeholder="Enter your password" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-key"></i>
-                    </span>
-                </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="Password"></span>
-                </p>
-            </div>
+    <div class="field">
+        <label asp-for="Password" class="label">Password</label>
+        <div class="control has-icons-left">
+            <input asp-for="Password" class="input" type="password" placeholder="Enter your password" />
+            <span class="icon is-small is-left">
+                <i class="fas fa-key"></i>
+            </span>
+        </div>
+        <p class="help is-danger">
+            <span asp-validation-for="Password"></span>
+        </p>
+    </div>
 
-            <div class="buttons is-centered">
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-link" type="submit">Log in</button>
-                    </div>
-                    <div class="control">
-                        <button class="button is-text">Cancel</button>
-                    </div>
-                </div>
+    <div class="buttons is-centered">
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-link" type="submit">Log in</button>
             </div>
-        </form>
+            <div class="control">
+                <button class="button is-text">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
