@@ -34,6 +34,7 @@ namespace CosmoTrack
                .AddDefaultTokenProviders();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ApplicationConnection"]));
+            services.AddDbContext<CosmoTrackDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
         }
 
