@@ -16,5 +16,7 @@ namespace CosmoTrack.Data
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Follow> Follows { get; set; }
     }
 }

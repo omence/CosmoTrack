@@ -1,0 +1,89 @@
+﻿@model IEnumerable<CosmoTrack.Models.Review>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MakePublic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserReview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoReviewURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageOneURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageTwoURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageThreeURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageFourURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserProduct)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MakePublic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserReview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoReviewURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageOneURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageTwoURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageThreeURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageFourURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProduct.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
