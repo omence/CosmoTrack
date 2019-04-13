@@ -11,11 +11,15 @@ namespace CosmoTrack.Models
 
         public string UserID { get; set; }
 
+        public string ImageURL { get; set; }
+
         public string Brand { get; set; }
 
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public string Ingredients { get; set; }
 
         public string Description { get; set; }
 
