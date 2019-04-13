@@ -22,13 +22,21 @@ namespace CosmoTrack.Controllers
             _signInManager = signInManager;
           
         }
-
+        /// <summary>
+        /// Sends home Page to Browser
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        /// <summary>
+        /// Gets registration info from user and creates a user in DB
+        /// </summary>
+        /// <param name="rvm"></param>
+        /// <returns>View back to home</returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
@@ -65,11 +73,20 @@ namespace CosmoTrack.Controllers
             return View(rvm);
         }
 
+        /// <summary>
+        /// Sends login View to Browser
+        /// </summary>
+        /// <returns>Login View</returns>
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Logs user in
+        /// </summary>
+        /// <param name="lvm"></param>
+        /// <returns>Home View</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
@@ -89,6 +106,10 @@ namespace CosmoTrack.Controllers
             return View(lvm);
         }
 
+        /// <summary>
+        /// Logs user out
+        /// </summary>
+        /// <returns>Home View</returns>
         [Authorize]
         public async Task<IActionResult> Logout()
         {
