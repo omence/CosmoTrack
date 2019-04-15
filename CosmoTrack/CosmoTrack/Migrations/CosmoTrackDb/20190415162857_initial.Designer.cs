@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmoTrack.Migrations.CosmoTrackDb
 {
     [DbContext(typeof(CosmoTrackDbContext))]
-    [Migration("20190413213555_initial")]
+    [Migration("20190415162857_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,23 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("CosmoTrack.Models.ProductJournal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("JournalEntry");
+
+                    b.Property<int>("ProductID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("ProductJournal");
+                });
+
             modelBuilder.Entity("CosmoTrack.Models.Review", b =>
                 {
                     b.Property<int>("ID")
@@ -88,16 +105,25 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductID")
+                        .IsUnique();
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("CosmoTrack.Models.ProductJournal", b =>
+                {
+                    b.HasOne("CosmoTrack.Models.Product")
+                        .WithMany("ProductJournals")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CosmoTrack.Models.Review", b =>
                 {
                     b.HasOne("CosmoTrack.Models.Product", "UserProduct")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ProductID")
+                        .WithOne("Reviews")
+                        .HasForeignKey("CosmoTrack.Models.Review", "ProductID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

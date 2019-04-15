@@ -103,6 +103,25 @@ namespace CosmoTrack.Migrations
                     b.ToTable("Follow");
                 });
 
+            modelBuilder.Entity("CosmoTrack.Models.UserJournal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("JournalEntry");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserJournal");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -222,6 +241,13 @@ namespace CosmoTrack.Migrations
                     b.HasOne("CosmoTrack.Models.ApplicationUser")
                         .WithMany("Following")
                         .HasForeignKey("ApplicationUserId1");
+                });
+
+            modelBuilder.Entity("CosmoTrack.Models.UserJournal", b =>
+                {
+                    b.HasOne("CosmoTrack.Models.ApplicationUser")
+                        .WithMany("UserJournals")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -41,6 +41,26 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductJournal",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductID = table.Column<int>(nullable: false),
+                    JournalEntry = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductJournal", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ProductJournal_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -69,15 +89,24 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductJournal_ProductID",
+                table: "ProductJournal",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductID",
                 table: "Reviews",
-                column: "ProductID");
+                column: "ProductID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Follows");
+
+            migrationBuilder.DropTable(
+                name: "ProductJournal");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

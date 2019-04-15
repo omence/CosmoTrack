@@ -43,6 +43,7 @@ namespace CosmoTrack.Controllers
 
             var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.ID == id);
+            product.Reviews = await _context.Reviews.FirstOrDefaultAsync(p => p.ProductID == id);
             if (product == null)
             {
                 return NotFound();
@@ -84,6 +85,7 @@ namespace CosmoTrack.Controllers
             }
 
             var product = await _context.Products.FindAsync(id);
+            
             if (product == null)
             {
                 return NotFound();
@@ -107,6 +109,7 @@ namespace CosmoTrack.Controllers
             {
                 try
                 {
+                    product.UserID = _userManager.GetUserId(User);
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -158,6 +161,28 @@ namespace CosmoTrack.Controllers
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ID == id);
+        }
+
+        public async Task<IActionResult> Review(int id, bool MakePublic, int Rating, string UserReview, string VideoReviewURL, string ImageOneURL, string ImageTwoURL, string ImageThreeURL, string ImageFourURL)
+        {
+            Review review = new Review();
+            review.ProductID = id;
+            review.MakePublic = MakePublic;
+            review.Rating = Rating;
+            review.UserReview = UserReview;
+            review.VideoReviewURL = VideoReviewURL;
+            review.ImageOneURL = ImageOneURL;
+            review.ImageTwoURL = ImageTwoURL;
+            review.ImageThreeURL = ImageThreeURL;
+            review.ImageFourURL = ImageFourURL;
+
+            Product product = await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
+            product.HasReview = true;
+            ReviewsController reviewsController = new ReviewsController(_context);
+
+            await reviewsController.Create(review);
+
+            return RedirectToAction(nameof(Details), new { id });
         }
     }
 }

@@ -10,49 +10,102 @@
 <div>
     <h4>Product</h4>
     <hr />
-    <dl class="row">
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ingredients)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ingredients)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+
+    <dd class="col-sm-10">
+        <img src="@Model.ImageURL" />
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Brand)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Brand)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Price)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Price)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Ingredients)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Ingredients)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Reviews)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Reviews)
+    </dd>
+
+
+</div>
+
+<div class="col-md-4">
+    <form asp-action="Review">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                Make Review Public
+                <input class="form-check-input" type="checkbox" name="MakePublic" value="true"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <label Name="Rating" class="control-label">Product Rating 1-5</label>
+            <input Name="Rating" class="form-control" />
+            <span Name="Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="UserReview" class="control-label">Write a Review</label>
+            <input Name="UserReview" class="form-control" />
+            <span Name="UserReview" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="VideoReviewURL" class="control-label">Link to a Video Review</label>
+            <input Name="VideoReviewURL" class="form-control" />
+            <span Name="VideoReviewURL" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="ImageOneURL" class="control-label">Upload or Link to Image</label>
+            <input Name="ImageOneURL" class="form-control" />
+            <span Name="ImageOneURL" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="ImageTwoURL" class="control-label">Upload or Link to Image</label>
+            <input Name="ImageTwoURL" class="form-control" />
+            <span Name="ImageTwoURL" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="ImageThreeURL" class="control-label">Upload or Link to Image</label>
+            <input Name="ImageThreeURL" class="form-control" />
+            <span Name="ImageThreeURL" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label Name="ImageFourURL" class="control-label">Upload or Link to Image</label>
+            <input Name="ImageFourURL" class="form-control" />
+            <span Name="ImageFourURL" class="text-danger"></span>
+        </div>
+            <input Name="id" value="@Model.ID" type="hidden" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Review" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
 <div>
+    <a asp-action="Review" asp-route-id="@Model.ID">Review</a>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
