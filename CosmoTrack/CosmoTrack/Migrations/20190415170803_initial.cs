@@ -193,6 +193,7 @@ namespace CosmoTrack.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserID = table.Column<string>(nullable: true),
                     JournalEntry = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmoTrack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190415162834_initial")]
+    [Migration("20190415170803_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,8 @@ namespace CosmoTrack.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<string>("JournalEntry");
 
