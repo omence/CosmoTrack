@@ -111,6 +111,8 @@ namespace CosmoTrack.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<string>("JournalEntry");
 
                     b.Property<string>("UserID");

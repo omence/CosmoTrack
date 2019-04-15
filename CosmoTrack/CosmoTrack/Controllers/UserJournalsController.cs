@@ -7,33 +7,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CosmoTrack.Data;
 using CosmoTrack.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace CosmoTrack.Controllers
 {
-    [Authorize]
-    public class ProductsController : Controller
+    public class UserJournalsController : Controller
     {
         private readonly CosmoTrackDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductsController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager)
+        public UserJournalsController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
 
             _userManager = userManager;
         }
 
-        // GET: Products
+        // GET: UserJournals
         public async Task<IActionResult> Index()
         {
-            var userId = _userManager.GetUserId(User);
-
-            return View(await _context.Products.Where(p => p.UserID == userId).ToListAsync());
+            return View(await _context.UserJournals.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: UserJournals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,42 +37,43 @@ namespace CosmoTrack.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var userJournal = await _context.UserJournals
                 .FirstOrDefaultAsync(m => m.ID == id);
-            product.Reviews = await _context.Reviews.FirstOrDefaultAsync(p => p.ProductID == id);
-            if (product == null)
+            if (userJournal == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(userJournal);
         }
 
-        // GET: Products/Create
+        // GET: UserJournals/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: UserJournals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ImageURL,Brand,Name,Price,Ingredients,Description")] Product product)
+        public async Task<IActionResult> Create([Bind("ID,JournalEntry")] UserJournal userJournal)
         {
+            userJournal.UserID = _userManager.GetUserId(User);
 
-            product.UserID = _userManager.GetUserId(User);
+            userJournal.DateCreated = DateTime.Now;
+
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(userJournal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(userJournal);
         }
 
-        // GET: Products/Edit/5
+        // GET: UserJournals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,23 +81,22 @@ namespace CosmoTrack.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
-            
-            if (product == null)
+            var userJournal = await _context.UserJournals.FindAsync(id);
+            if (userJournal == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(userJournal);
         }
 
-        // POST: Products/Edit/5
+        // POST: UserJournals/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,ImageURL,Brand,Name,Price,Ingredients,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,JournalEntry,DateCreated")] UserJournal userJournal)
         {
-            if (id != product.ID)
+            if (id != userJournal.ID)
             {
                 return NotFound();
             }
@@ -109,13 +105,12 @@ namespace CosmoTrack.Controllers
             {
                 try
                 {
-                    product.UserID = _userManager.GetUserId(User);
-                    _context.Update(product);
+                    _context.Update(userJournal);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ID))
+                    if (!UserJournalExists(userJournal.ID))
                     {
                         return NotFound();
                     }
@@ -126,10 +121,10 @@ namespace CosmoTrack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(userJournal);
         }
 
-        // GET: Products/Delete/5
+        // GET: UserJournals/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,56 +132,30 @@ namespace CosmoTrack.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var userJournal = await _context.UserJournals
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (product == null)
+            if (userJournal == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(userJournal);
         }
 
-        // POST: Products/Delete/5
+        // POST: UserJournals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            var userJournal = await _context.UserJournals.FindAsync(id);
+            _context.UserJournals.Remove(userJournal);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool UserJournalExists(int id)
         {
-            return _context.Products.Any(e => e.ID == id);
-        }
-
-        public async Task<IActionResult> Review(int id, bool MakePublic, int Rating, string UserReview, string VideoReviewURL, string ImageOneURL, string ImageTwoURL, string ImageThreeURL, string ImageFourURL)
-        {
-            Review review = new Review();
-            review.ProductID = id;
-            review.MakePublic = MakePublic;
-            review.Rating = Rating;
-            review.UserReview = UserReview;
-            review.VideoReviewURL = VideoReviewURL;
-            review.ImageOneURL = ImageOneURL;
-            review.ImageTwoURL = ImageTwoURL;
-            review.ImageThreeURL = ImageThreeURL;
-            review.ImageFourURL = ImageFourURL;
-
-            Product product = await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
-
-            product.HasReview = true;
-
-            await _context.SaveChangesAsync();
-
-            ReviewsController reviewsController = new ReviewsController(_context);
-
-            await reviewsController.Create(review);
-
-            return RedirectToAction(nameof(Details), new { id });
+            return _context.UserJournals.Any(e => e.ID == id);
         }
     }
 }

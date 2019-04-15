@@ -29,6 +29,8 @@ namespace CosmoTrack.Models
 
         public string ImageFourURL { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         //Nav prop
         public Product UserProduct { get; set; }
     }

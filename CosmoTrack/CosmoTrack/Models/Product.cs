@@ -25,6 +25,10 @@ namespace CosmoTrack.Models
 
         public bool HasReview { get; set; }
 
+        public bool HasJournalEntry { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
         //Nav props
         public ICollection<ProductJournal> ProductJournals { get; set; }
 

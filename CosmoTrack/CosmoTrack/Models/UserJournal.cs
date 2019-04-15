@@ -12,5 +12,7 @@ namespace CosmoTrack.Models
         public string UserID { get; set; }
 
         public string JournalEntry { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }
