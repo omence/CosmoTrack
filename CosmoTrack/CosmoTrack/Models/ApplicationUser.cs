@@ -26,7 +26,9 @@ namespace CosmoTrack.Models
         public ICollection<Follow> Followers { get; set; }
 
         public ICollection<Follow> Following { get; set; }
-        
+
+        public ICollection<UserJournal> UserJournals { get; set; }
+
     }
 
   

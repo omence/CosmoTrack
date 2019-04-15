@@ -23,8 +23,12 @@ namespace CosmoTrack.Models
 
         public string Description { get; set; }
 
+        public bool HasReview { get; set; }
+
         //Nav props
-        public ICollection<Review> Reviews { get; set; }
+        public ICollection<ProductJournal> ProductJournals { get; set; }
+
+        public Review Reviews { get; set; }
 
 
     }

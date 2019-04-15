@@ -21,6 +21,7 @@ namespace CosmoTrack.Controllers
             _context = context;
         }
 
+        public int Id { get; set; }
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
@@ -47,20 +48,16 @@ namespace CosmoTrack.Controllers
             return View(review);
         }
 
-        // GET: Reviews/Create
-        public IActionResult Create()
-        {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID");
-            return View();
-        }
 
         // POST: Reviews/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MakePublic,UserID,ProductID,Rating,UserReview,VideoReviewURL,ImageOneURL,ImageTwoURL,ImageThreeURL,ImageFourURL")] Review review)
+        public async Task<IActionResult> Create(Review review)
         {
+            
+
             if (ModelState.IsValid)
             {
                 _context.Add(review);
