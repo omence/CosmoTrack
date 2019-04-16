@@ -14,6 +14,15 @@
 </head>
 <body>
     <nav>
+        @if (!signInManager.IsSignedIn(User))
+        {
+            <a href="/Account/Login" class="has-text-danger">
+                Login
+            </a>
+            <a href="/Account/Register" class="has-text-danger">
+                Create an Account
+            </a>
+        }
         @if (signInManager.IsSignedIn(User))
         {
             <div class="navbar-item">
@@ -37,6 +46,7 @@
                     <a href="/Follows" class="has-text-danger">
                         My Community
                     </a>
+
                 </div>
             </div>
         }
