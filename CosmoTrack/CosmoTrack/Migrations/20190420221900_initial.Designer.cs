@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmoTrack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190415170803_initial")]
+    [Migration("20190420221900_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

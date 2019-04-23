@@ -17,6 +17,10 @@ namespace CosmoTrack.Models.ViewModels
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "User Name")]
+        public string NickName { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

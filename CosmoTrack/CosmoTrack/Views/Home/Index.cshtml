@@ -5,6 +5,8 @@
 
 @foreach (var item in Model)
 {
+    <label>User Name</label>
+    <p>@item.NickName</p>
     <img src="@item.UserProduct.ImageURL" />
     <label>Rating</label>
     <p>@item.Rating</p>

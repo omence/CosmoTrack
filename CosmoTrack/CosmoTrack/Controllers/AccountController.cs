@@ -44,7 +44,7 @@ namespace CosmoTrack.Controllers
             {   //setting values to input from user
                 ApplicationUser user = new ApplicationUser()
                 {
-                    UserName = rvm.Email,
+                    UserName = rvm.NickName,
                     Email = rvm.Email,
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,

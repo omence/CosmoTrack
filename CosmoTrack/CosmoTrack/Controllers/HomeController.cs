@@ -23,6 +23,8 @@ namespace CosmoTrack.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            
+
             var reviews = _context.Reviews.Where(r => r.MakePublic == true).ToList();
 
             foreach(var item in reviews)
