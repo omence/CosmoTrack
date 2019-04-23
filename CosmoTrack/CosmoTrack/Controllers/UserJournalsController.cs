@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CosmoTrack.Data;
 using CosmoTrack.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CosmoTrack.Controllers
 {
+    [Authorize]
     public class UserJournalsController : Controller
     {
         private readonly CosmoTrackDbContext _context;
@@ -26,7 +28,9 @@ namespace CosmoTrack.Controllers
         // GET: UserJournals
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserJournals.ToListAsync());
+            var userId = _userManager.GetUserId(User);
+
+            return View(await _context.UserJournals.Where(j => j.UserID == userId).ToListAsync());
         }
 
         // GET: UserJournals/Details/5

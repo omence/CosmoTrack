@@ -102,6 +102,8 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
 
                     b.Property<bool>("MakePublic");
 
+                    b.Property<string>("NickName");
+
                     b.Property<int>("ProductID");
 
                     b.Property<int>("Rating");

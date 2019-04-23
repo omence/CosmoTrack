@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmoTrack.Migrations.CosmoTrackDb
 {
     [DbContext(typeof(CosmoTrackDbContext))]
-    [Migration("20190415170814_initial")]
+    [Migration("20190420221958_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,8 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                     b.Property<string>("ImageTwoURL");
 
                     b.Property<bool>("MakePublic");
+
+                    b.Property<string>("NickName");
 
                     b.Property<int>("ProductID");
 

@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<CosmoTrack.Models.Product>
+<header>
+    <h1></h1>
 
+</header>
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -34,9 +36,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            
+            <td>
                 <img src="@item.ImageURL"/>
-            
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Brand)
             </td>

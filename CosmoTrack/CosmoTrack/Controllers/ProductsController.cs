@@ -165,8 +165,11 @@ namespace CosmoTrack.Controllers
 
         public async Task<IActionResult> Review(int id, bool MakePublic, int Rating, string UserReview, string VideoReviewURL, string ImageOneURL, string ImageTwoURL, string ImageThreeURL, string ImageFourURL)
         {
+            var userName = _userManager.GetUserName(User);
+
             Review review = new Review();
             review.ProductID = id;
+            review.NickName = userName;
             review.MakePublic = MakePublic;
             review.Rating = Rating;
             review.UserReview = UserReview;

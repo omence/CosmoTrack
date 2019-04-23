@@ -86,6 +86,7 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NickName = table.Column<string>(nullable: true),
                     MakePublic = table.Column<bool>(nullable: false),
                     UserID = table.Column<string>(nullable: true),
                     ProductID = table.Column<int>(nullable: false),

@@ -1,3 +1,35 @@
-﻿@{
+﻿@model IEnumerable<CosmoTrack.Models.Review>
+@{
     Layout = "_Layout";
+}
+
+@foreach (var item in Model)
+{
+    <label>User Name</label>
+    <p>@item.NickName</p>
+    <img src="@item.UserProduct.ImageURL" />
+    <label>Rating</label>
+    <p>@item.Rating</p>
+    <label>Review</label>
+    <p>@item.UserReview</p>
+    @if (item.VideoReviewURL != null)
+    {
+        <a href="@item.VideoReviewURL">Video Review</a>
+    }
+    @if (item.ImageOneURL != null)
+    {
+        <img src="@item.ImageOneURL" />
+    }
+    @if (item.ImageTwoURL != null)
+    {
+        <img src="@item.ImageTwoURL" />
+    }
+    @if (item.ImageThreeURL != null)
+    {
+        <img src="@item.ImageThreeURL" />
+    }
+    @if (item.ImageFourURL != null)
+    {
+        <img src="@item.ImageFourURL" />
+    }
 }
