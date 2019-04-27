@@ -4,14 +4,16 @@ using CosmoTrack.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CosmoTrack.Migrations.CosmoTrackDb
+namespace CosmoTrack.Migrations
 {
     [DbContext(typeof(CosmoTrackDbContext))]
-    partial class CosmoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190427223525_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,6 +86,23 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                     b.ToTable("ProductJournals");
                 });
 
+            modelBuilder.Entity("CosmoTrack.Models.Profile", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CurrentRegiment");
+
+                    b.Property<string>("ProfileImageURL");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Profiles");
+                });
+
             modelBuilder.Entity("CosmoTrack.Models.Review", b =>
                 {
                     b.Property<int>("ID")
@@ -105,6 +124,8 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                     b.Property<string>("NickName");
 
                     b.Property<int>("ProductID");
+
+                    b.Property<string>("ProfileImageURL");
 
                     b.Property<int>("Rating");
 

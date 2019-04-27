@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CosmoTrack.Migrations
+namespace CosmoTrack.Migrations.ApplicationDb
 {
     public partial class initial : Migration
     {
@@ -41,7 +41,8 @@ namespace CosmoTrack.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    NickName = table.Column<string>(nullable: false)
+                    NickName = table.Column<string>(nullable: false),
+                    ProfileImageURL = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

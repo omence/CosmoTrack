@@ -9,6 +9,8 @@ namespace CosmoTrack.Models
     {
         public int ID { get; set; }
 
+        public string ProfileImageURL { get; set; }
+
         public string NickName { get; set; }
 
         public bool MakePublic { get; set; }

@@ -1,0 +1,30 @@
+﻿@model CosmoTrack.Models.Profile
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<h1>My Profile</h1>
+
+
+<table class="table">
+
+    <tbody>
+        <tr>
+            @if (Model.ProfileImageURL != null)
+            {
+            
+               <img src="@Model.ProfileImageURL" />
+            
+            }
+            <td>
+                @Model.CurrentRegiment
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Model.ID">Add or Edit Your Regiment</a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

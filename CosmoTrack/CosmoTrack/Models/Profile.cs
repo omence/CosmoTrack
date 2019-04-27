@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CosmoTrack.Models.ViewModels
+namespace CosmoTrack.Models
 {
-    public class PublicReview
+    public class Profile
     {
+        public int ID { get; set; }
+
         public string UserName { get; set; }
 
         public string ProfileImageURL { get; set; }
 
-        public string UserReview { get; set; }
+        public string CurrentRegiment { get; set; }
 
-        public Product product { get; set; }
     }
 }

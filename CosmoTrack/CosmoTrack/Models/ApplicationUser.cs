@@ -15,8 +15,8 @@ namespace CosmoTrack.Models
         [Required]
         public string NickName { get; set; }
 
+        public string ProfileImageURL { get; set; }
 
-       
     }
 
   
