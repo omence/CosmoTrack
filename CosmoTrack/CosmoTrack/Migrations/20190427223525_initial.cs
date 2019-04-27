@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CosmoTrack.Migrations.CosmoTrackDb
+namespace CosmoTrack.Migrations
 {
     public partial class initial : Migration
     {
@@ -42,6 +42,21 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Profiles",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(nullable: true),
+                    ProfileImageURL = table.Column<string>(nullable: true),
+                    CurrentRegiment = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +101,7 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProfileImageURL = table.Column<string>(nullable: true),
                     NickName = table.Column<string>(nullable: true),
                     MakePublic = table.Column<bool>(nullable: false),
                     UserID = table.Column<string>(nullable: true),
@@ -129,6 +145,9 @@ namespace CosmoTrack.Migrations.CosmoTrackDb
 
             migrationBuilder.DropTable(
                 name: "ProductJournals");
+
+            migrationBuilder.DropTable(
+                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

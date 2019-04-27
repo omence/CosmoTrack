@@ -19,12 +19,14 @@ namespace CosmoTrack.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
+        private readonly CosmoTrackDbContext _cosmotrack;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, CosmoTrackDbContext cosmotrack)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _cosmotrack = cosmotrack;
           
         }
         /// <summary>
@@ -63,6 +65,8 @@ namespace CosmoTrack.Controllers
                             NickName = rvm.NickName
                         };
 
+
+
                         //creates passsword if password is in valid format
                         var result = await _userManager.CreateAsync(user, rvm.Password);
 
@@ -80,7 +84,13 @@ namespace CosmoTrack.Controllers
                             //sends user to home page after sign in
                             await _signInManager.SignInAsync(user, isPersistent: false);
 
-                            return RedirectToAction("Index", "Profile");
+                            Profile profile = new Profile();
+                            profile.UserName = rvm.NickName;
+
+                            _cosmotrack.Profiles.Add(profile);
+                            await _cosmotrack.SaveChangesAsync();
+
+                            return RedirectToAction("Index", "Profiles");
                         }
                     }
 
@@ -119,7 +129,7 @@ namespace CosmoTrack.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Profile");
+                    return RedirectToAction("Index", "Profiles");
                 }
             }
 
