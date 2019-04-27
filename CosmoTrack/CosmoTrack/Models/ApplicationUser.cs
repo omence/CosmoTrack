@@ -13,15 +13,6 @@ namespace CosmoTrack.Models
     {
 
         [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Required]
-        [Remote("CheckUserExist", "Account", ErrorMessage = "The User Exists")]
         public string NickName { get; set; }
 
 
