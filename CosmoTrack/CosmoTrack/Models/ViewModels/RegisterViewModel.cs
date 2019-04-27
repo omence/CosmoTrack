@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace CosmoTrack.Models.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "First Name is Required")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -16,11 +17,12 @@ namespace CosmoTrack.Models.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
+        
         [Display(Name = "User Name")]
         public string NickName { get; set; }
 
-        [Required]
+        
+        [Required(ErrorMessage = "Email Address is Required")]
         [EmailAddress]
         public string Email { get; set; }
 

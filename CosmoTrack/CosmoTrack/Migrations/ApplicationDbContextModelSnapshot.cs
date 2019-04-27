@@ -15,7 +15,7 @@ namespace CosmoTrack.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,8 +58,6 @@ namespace CosmoTrack.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("ProfileImageURL");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -78,50 +76,6 @@ namespace CosmoTrack.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("CosmoTrack.Models.Follow", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<string>("ApplicationUserId1");
-
-                    b.Property<string>("FollowerID");
-
-                    b.Property<string>("FollowingID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId1");
-
-                    b.ToTable("Follow");
-                });
-
-            modelBuilder.Entity("CosmoTrack.Models.UserJournal", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("JournalEntry");
-
-                    b.Property<string>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("UserJournal");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -232,24 +186,6 @@ namespace CosmoTrack.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CosmoTrack.Models.Follow", b =>
-                {
-                    b.HasOne("CosmoTrack.Models.ApplicationUser")
-                        .WithMany("Followers")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("CosmoTrack.Models.ApplicationUser")
-                        .WithMany("Following")
-                        .HasForeignKey("ApplicationUserId1");
-                });
-
-            modelBuilder.Entity("CosmoTrack.Models.UserJournal", b =>
-                {
-                    b.HasOne("CosmoTrack.Models.ApplicationUser")
-                        .WithMany("UserJournals")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
