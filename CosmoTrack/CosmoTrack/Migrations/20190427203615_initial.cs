@@ -41,9 +41,7 @@ namespace CosmoTrack.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    NickName = table.Column<string>(nullable: true)
+                    NickName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

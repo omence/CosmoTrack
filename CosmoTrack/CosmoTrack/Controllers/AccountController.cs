@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CosmoTrack.Data;
@@ -9,6 +10,7 @@ using CosmoTrack.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CosmoTrack.Controllers
 {
@@ -43,39 +45,55 @@ namespace CosmoTrack.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
-           
-            if (ModelState.IsValid)
-                {   //setting values to input from user
-                    ApplicationUser user = new ApplicationUser()
-                    {
-                        UserName = rvm.Email,
-                        Email = rvm.Email,
-                        FirstName = rvm.FirstName,
-                        LastName = rvm.LastName,
-                        NickName = rvm.NickName
-                    };
+            var email = _context.Users.FirstOrDefault(e => e.Email == rvm.Email);
 
-                    //creates passsword if password is in valid format
-                    var result = await _userManager.CreateAsync(user, rvm.Password);
+            var nickName = _context.Users.FirstOrDefault(n => n.NickName == rvm.NickName);
 
-                    //creat a number of different claims
-                    if (result.Succeeded)
-                    {
-                        Claim NickNameClaim = new Claim("NickName", $"{user.NickName}");
+            if (email == null)
+            {
+                if (nickName == null)
+                {
 
-                        //list to hold the claims
-                        List<Claim> claims = new List<Claim> { NickNameClaim };
+                    if (ModelState.IsValid)
+                    {   //setting values to input from user
+                        ApplicationUser user = new ApplicationUser()
+                        {
+                            UserName = rvm.Email,
+                            Email = rvm.Email,
+                            NickName = rvm.NickName
+                        };
 
-                        //returns list of claims to user manager
-                        await _userManager.AddClaimsAsync(user, claims);
+                        //creates passsword if password is in valid format
+                        var result = await _userManager.CreateAsync(user, rvm.Password);
 
-                        //sends user to home page after sign in
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //creat a number of different claims
+                        if (result.Succeeded)
+                        {
+                            Claim NickNameClaim = new Claim("NickName", $"{user.NickName}");
 
-                        return RedirectToAction("Index", "Home");
+                            //list to hold the claims
+                            List<Claim> claims = new List<Claim> { NickNameClaim };
+
+                            //returns list of claims to user manager
+                            await _userManager.AddClaimsAsync(user, claims);
+
+                            //sends user to home page after sign in
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
+
+                    return View(rvm);
                 }
+
+                ModelState.AddModelError("NickName", "This user name already exisits, please choose another");
+
                 return View(rvm);
+            }
+            ModelState.AddModelError("Email", "An account with associated with this email address already exists, please login or create your account with another email");
+
+            return View(rvm);
            
         }
 

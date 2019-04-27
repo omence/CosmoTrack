@@ -16,21 +16,7 @@
     <div class="container">
         @Html.ValidationSummary()
         <form method="post">
-            <div class="field">
-                <label asp-for="FirstName" class="label">First Name</label>
-                <div class="control">
-                    <input asp-for="FirstName" class="input" type="text" placeholder="First Name" />
-                </div>
-                <span asp-validation-for="FirstName" class="is-danger"></span>
-            </div>
-
-            <div class="field">
-                <label asp-for="LastName" class="label">Last Name</label>
-                <div class="control">
-                    <input asp-for="LastName" class="input" type="text" placeholder="Last Name" />
-                </div>
-                <span asp-validation-for="LastName" class="is-danger"></span>
-            </div>
+           
 
             <div class="field">
                 <label asp-for="NickName" class="label">User Name</label>

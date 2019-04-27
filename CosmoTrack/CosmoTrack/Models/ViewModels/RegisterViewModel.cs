@@ -8,16 +8,9 @@ using System.Threading.Tasks;
 namespace CosmoTrack.Models.ViewModels
 {
     public class RegisterViewModel
-    {
-        [Required(ErrorMessage = "First Name is Required")]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+    { 
 
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        
+        [Required(ErrorMessage = "User Name is Required")]
         [Display(Name = "User Name")]
         public string NickName { get; set; }
 
@@ -26,11 +19,11 @@ namespace CosmoTrack.Models.ViewModels
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password Confirmation is Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Does Not Match")]
