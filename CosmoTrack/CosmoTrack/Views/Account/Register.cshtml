@@ -14,6 +14,7 @@
 
 <section class="pads-xs">
     <div class="container">
+        @Html.ValidationSummary()
         <form method="post">
             <div class="field">
                 <label asp-for="FirstName" class="label">First Name</label>
@@ -42,15 +43,10 @@
 
             <div class="field">
                 <label asp-for="Email" class="label">Email</label>
-                <div class="control has-icons-left">
-                    <input asp-for="Email" class="input" type="email" placeholder="example@email.com" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
+                <div class="control">
+                    <input asp-for="Email" class="input" type="text" placeholder="Last Name" />
                 </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="Email"></span>
-                </p>
+                <span asp-validation-for="Email" class="is-danger"></span>
             </div>
 
             <div class="field">

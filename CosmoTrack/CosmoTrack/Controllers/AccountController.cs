@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CosmoTrack.Data;
 using CosmoTrack.Models;
 using CosmoTrack.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,13 @@ namespace CosmoTrack.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly ApplicationDbContext _context;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
           
         }
         /// <summary>
@@ -40,37 +43,40 @@ namespace CosmoTrack.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
+           
             if (ModelState.IsValid)
-            {   //setting values to input from user
-                ApplicationUser user = new ApplicationUser()
-                {
-                    UserName = rvm.NickName,
-                    Email = rvm.Email,
-                    FirstName = rvm.FirstName,
-                    LastName = rvm.LastName,
-                };
+                {   //setting values to input from user
+                    ApplicationUser user = new ApplicationUser()
+                    {
+                        UserName = rvm.Email,
+                        Email = rvm.Email,
+                        FirstName = rvm.FirstName,
+                        LastName = rvm.LastName,
+                        NickName = rvm.NickName
+                    };
 
-                //creates passsword if password is in valid format
-                var result = await _userManager.CreateAsync(user, rvm.Password);
+                    //creates passsword if password is in valid format
+                    var result = await _userManager.CreateAsync(user, rvm.Password);
 
-                //creat a number of different claims
-                if (result.Succeeded)
-                {
-                    Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
+                    //creat a number of different claims
+                    if (result.Succeeded)
+                    {
+                        Claim NickNameClaim = new Claim("NickName", $"{user.NickName}");
 
-                    //list to hold the claims
-                    List<Claim> claims = new List<Claim> { fullNameClaim};
+                        //list to hold the claims
+                        List<Claim> claims = new List<Claim> { NickNameClaim };
 
-                    //returns list of claims to user manager
-                    await _userManager.AddClaimsAsync(user, claims);
+                        //returns list of claims to user manager
+                        await _userManager.AddClaimsAsync(user, claims);
 
-                    //sends user to home page after sign in
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                        //sends user to home page after sign in
+                        await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-            }
-            return View(rvm);
+                return View(rvm);
+           
         }
 
         /// <summary>
@@ -82,11 +88,10 @@ namespace CosmoTrack.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Logs user in
+
         /// </summary>
-        /// <param name="lvm"></param>
-        /// <returns>Home View</returns>
+        /// <param name="lvm">Login view model</param>
+        /// <returns>Signed in home index view</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
@@ -96,12 +101,11 @@ namespace CosmoTrack.Controllers
 
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByEmailAsync(lvm.Email);
-                   
                     return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.TryAddModelError(string.Empty, "Invalid Login Attempt");
+
+            ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             return View(lvm);
         }

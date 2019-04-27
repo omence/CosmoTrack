@@ -28,7 +28,7 @@
             <div class="navbar-item">
                 <div class="buttons is-size-5">
                     <p>
-                        Hey, @User.Claims.First(c => c.Type == "FullName").Value
+                        Welcome, @User.Claims.First(c => c.Type == "NickName").Value
                         <span class="pad-left-xs pad-right-xs">|</span>
                     </p>
                     <a href="../Account/Logout" class="has-text-danger">
