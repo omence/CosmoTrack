@@ -5,6 +5,10 @@
 
 @foreach (var item in Model)
 {
+    @if (item.ProfileImageURL != null)
+    {
+        <img src="@item.ProfileImageURL" />
+    }
     <label>User Name</label>
     <p>@item.NickName</p>
     <img src="@item.UserProduct.ImageURL" />

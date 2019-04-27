@@ -80,7 +80,7 @@ namespace CosmoTrack.Controllers
                             //sends user to home page after sign in
                             await _signInManager.SignInAsync(user, isPersistent: false);
 
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Profile");
                         }
                     }
 
@@ -119,7 +119,7 @@ namespace CosmoTrack.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Profile");
                 }
             }
 

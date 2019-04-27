@@ -22,5 +22,7 @@ namespace CosmoTrack.Data
         public DbSet<UserJournal> UserJournals { get; set; }
 
         public DbSet<ProductJournal> ProductJournals { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
     }
 }
