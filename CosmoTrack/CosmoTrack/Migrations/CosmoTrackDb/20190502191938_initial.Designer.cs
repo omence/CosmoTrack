@@ -4,18 +4,20 @@ using CosmoTrack.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CosmoTrack.Migrations
+namespace CosmoTrack.Migrations.CosmoTrackDb
 {
     [DbContext(typeof(CosmoTrackDbContext))]
-    partial class CosmoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190502191938_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -77,6 +79,8 @@ namespace CosmoTrack.Migrations
 
                     b.Property<int>("ProductID");
 
+                    b.Property<bool>("ViewableByFollwers");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ProductID");
@@ -95,6 +99,8 @@ namespace CosmoTrack.Migrations
                     b.Property<string>("ProfileImageURL");
 
                     b.Property<string>("UserName");
+
+                    b.Property<bool>("ViewableByFollwers");
 
                     b.HasKey("ID");
 
@@ -152,6 +158,8 @@ namespace CosmoTrack.Migrations
                     b.Property<string>("JournalEntry");
 
                     b.Property<string>("UserID");
+
+                    b.Property<bool>("ViewableByFollwers");
 
                     b.HasKey("ID");
 
