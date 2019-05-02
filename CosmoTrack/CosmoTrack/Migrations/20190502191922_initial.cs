@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CosmoTrack.Migrations.ApplicationDb
+namespace CosmoTrack.Migrations
 {
     public partial class initial : Migration
     {

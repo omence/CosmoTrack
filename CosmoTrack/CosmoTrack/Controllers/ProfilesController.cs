@@ -14,30 +14,57 @@ namespace CosmoTrack.Controllers
     public class ProfilesController : Controller
     {
         private readonly CosmoTrackDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _application;
+        private UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context2;
 
-        public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext application)
+        public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2)
         {
             _context = context;
+            _context2 = context2;
             _userManager = userManager;
-            _application = application;
         }
 
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
-            var userID = _userManager.GetUserId(User);
-            var user = _application.Users.FirstOrDefault(u => u.Id == userID);
+
+            var userId = _userManager.GetUserId(User);
+
+            var user = await _context2.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             return View(_context.Profiles.FirstOrDefault(p => p.UserName == user.NickName));
         }
 
-       // POST: Profiles/Create
+        // GET: Profiles/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var profile = await _context.Profiles
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return View(profile);
+        }
+
+        // GET: Profiles/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Profiles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Profile profile)
+        public async Task<IActionResult> Create([Bind("ID,UserName,ProfileImageURL,CurrentRegiment,ViewableByFollwers")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +96,7 @@ namespace CosmoTrack.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,ProfileImageURL,CurrentRegiment")] Profile profile)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,ProfileImageURL,CurrentRegiment,ViewableByFollwers")] Profile profile)
         {
             if (id != profile.ID)
             {
@@ -97,6 +124,35 @@ namespace CosmoTrack.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(profile);
+        }
+
+        // GET: Profiles/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var profile = await _context.Profiles
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return View(profile);
+        }
+
+        // POST: Profiles/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var profile = await _context.Profiles.FindAsync(id);
+            _context.Profiles.Remove(profile);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ProfileExists(int id)

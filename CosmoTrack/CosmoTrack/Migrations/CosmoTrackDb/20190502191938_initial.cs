@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CosmoTrack.Migrations
+namespace CosmoTrack.Migrations.CosmoTrackDb
 {
     public partial class initial : Migration
     {
@@ -52,7 +52,8 @@ namespace CosmoTrack.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
                     ProfileImageURL = table.Column<string>(nullable: true),
-                    CurrentRegiment = table.Column<string>(nullable: true)
+                    CurrentRegiment = table.Column<string>(nullable: true),
+                    ViewableByFollwers = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,6 +68,7 @@ namespace CosmoTrack.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserID = table.Column<string>(nullable: true),
                     JournalEntry = table.Column<string>(nullable: true),
+                    ViewableByFollwers = table.Column<bool>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -82,7 +84,8 @@ namespace CosmoTrack.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductID = table.Column<int>(nullable: false),
                     JournalEntry = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    ViewableByFollwers = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
