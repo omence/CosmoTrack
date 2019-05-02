@@ -15,5 +15,7 @@ namespace CosmoTrack.Models
 
         public string CurrentRegiment { get; set; }
 
+        public bool ViewableByFollwers { get; set; }
+
     }
 }

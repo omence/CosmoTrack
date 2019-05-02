@@ -13,6 +13,8 @@ namespace CosmoTrack.Models
 
         public string JournalEntry { get; set; }
 
+        public bool ViewableByFollwers { get; set; }
+
         public DateTime DateCreated { get; set; }
     }
 }
