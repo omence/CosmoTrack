@@ -16,7 +16,6 @@ namespace CosmoTrack.Controllers
         private readonly CosmoTrackDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _application;
-        private CosmoTrackDbContext _cosmotrack;
 
         public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext application)
         {
@@ -33,25 +32,7 @@ namespace CosmoTrack.Controllers
             return View(_context.Profiles.FirstOrDefault(p => p.UserName == user.NickName));
         }
 
-        // GET: Profiles/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var profile = await _context.Profiles
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (profile == null)
-            {
-                return NotFound();
-            }
-
-            return View(profile);
-        }
-
-        // POST: Profiles/Create
+       // POST: Profiles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,35 +97,6 @@ namespace CosmoTrack.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(profile);
-        }
-
-        // GET: Profiles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var profile = await _context.Profiles
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (profile == null)
-            {
-                return NotFound();
-            }
-
-            return View(profile);
-        }
-
-        // POST: Profiles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var profile = await _context.Profiles.FindAsync(id);
-            _context.Profiles.Remove(profile);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool ProfileExists(int id)
