@@ -17,11 +17,12 @@ namespace CosmoTrack.Controllers
     {
         private readonly CosmoTrackDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context2;
 
-        public ProductsController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager)
+        public ProductsController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2)
         {
             _context = context;
-
+            _context2 = context2;
             _userManager = userManager;
         }
 
@@ -165,11 +166,13 @@ namespace CosmoTrack.Controllers
 
         public async Task<IActionResult> Review(int id, bool MakePublic, int Rating, string UserReview, string VideoReviewURL, string ImageOneURL, string ImageTwoURL, string ImageThreeURL, string ImageFourURL)
         {
-            var userName = _userManager.GetUserName(User);
+            var userId = _userManager.GetUserId(User);
+
+            var user = _context2.Users.FirstOrDefault(u => u.Id == userId);
 
             Review review = new Review();
             review.ProductID = id;
-            review.NickName = userName;
+            review.NickName = user.NickName;
             review.MakePublic = MakePublic;
             review.Rating = Rating;
             review.UserReview = UserReview;
