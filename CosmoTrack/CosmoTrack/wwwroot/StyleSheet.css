@@ -1,11 +1,8 @@
 ﻿body {
 }
 
-img {
-    width: 100px;
-    height: auto;
+img{
+    width:100%;
+    height:auto;
 }
 
-nav{
-    width: 780px
-}

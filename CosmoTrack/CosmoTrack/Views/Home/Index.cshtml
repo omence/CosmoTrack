@@ -3,24 +3,37 @@
     Layout = "_Layout";
 }
 
+
 @foreach (var item in Model)
 {
-    @if (item.ProfileImageURL != null)
-    {
-        <img src="@item.ProfileImageURL" />
-    }
+    <div class="container">
+        <div class="row">
 
-    <p>@item.NickName</p>
+            <div class="col-sm">
 
-    <img src="@item.UserProduct.ImageURL" />
 
-    <p>@item.Rating</p>
+                @if (item.ProfileImageURL != null)
+                {
+                    <img src="@item.ProfileImageURL" class="rounded float-right" />
+                }
+                <p>@item.NickName</p>
 
-    <p>@item.UserReview</p>
+                <img src="@item.UserProduct.ImageURL" />
+                <div>
+                    <p>@item.Rating</p>
+                </div>
+                <div class="review">
+                    <p>@item.UserReview</p>
+                </div>
+                @if (item.VideoReviewURL != null)
+                {
+                    <div>
+                        <img href="@item.VideoReviewURL">
+                    </div>
+                }
 
-    @if (item.VideoReviewURL != null)
-    {
-        <img href="@item.VideoReviewURL">
-    }
 
+            </div>
+        </div>
+    </div>
 }
