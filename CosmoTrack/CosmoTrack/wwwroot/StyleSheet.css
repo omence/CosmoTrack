@@ -6,3 +6,26 @@ img{
     height:auto;
 }
 
+li {
+    padding: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+    a:hover, a:focus {
+        color: red;
+        text-decoration: none;
+        outline: none;
+    }
+
+.active {
+    font-style:italic;
+    font-weight:bold;
+
+}
+p {
+    width: 200px;
+}
