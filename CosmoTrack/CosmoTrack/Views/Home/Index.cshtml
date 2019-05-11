@@ -2,38 +2,48 @@
 @{
     Layout = "_Layout";
 }
+    
+
+        <div class="container mt-5 row">
+            @foreach (var item in Model)
+            {
+
+                <div class="card-group">
+
+                    <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
+
+                        <div class="card-body">
+
+                            <h5 class="card-header">
+                                @item.NickName
+                            </h5>
+
+                            <img src="@item.UserProduct.ImageURL" class="img-fluid" />
+
+                            <h3 class="card-title mt-2">
+                                @item.UserProduct.Brand
+                            </h3>
+
+                            <h5 class="card-subtitle mt-2">
+                                @item.UserProduct.Name
+                            </h5>
+
+                            <p class="card-text mt-3">
+                                @item.UserReview
+                            </p>
+
+                            @if (item.VideoReviewURL != null)
+                            {
+                                <a src="@item.VideoReviewURL">
+                                    Video Review
+                                </a>
+                            }
 
 
-@foreach (var item in Model)
-{
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm">
-
-
-                @if (item.ProfileImageURL != null)
-                {
-                    <img src="@item.ProfileImageURL" class="rounded float-right" />
-                }
-                <p>@item.NickName</p>
-
-                <img src="@item.UserProduct.ImageURL" />
-                <div>
-                    <p>@item.Rating</p>
-                </div>
-                <div class="review">
-                    <p>@item.UserReview</p>
-                </div>
-                @if (item.VideoReviewURL != null)
-                {
-                    <div>
-                        <img href="@item.VideoReviewURL">
+                        </div>
                     </div>
-                }
 
-
-            </div>
+                </div>
+            }
         </div>
-    </div>
-}
+

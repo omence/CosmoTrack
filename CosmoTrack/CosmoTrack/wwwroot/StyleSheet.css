@@ -1,10 +1,8 @@
-﻿body {
+﻿html {
+   align-content:center;
 }
 
-img{
-    width:100%;
-    height:auto;
-}
+
 
 li {
     padding: 8px;
@@ -28,4 +26,18 @@ a {
 }
 p {
     width: 200px;
+}
+.card {
+    background-color: azure;
+    
+    
+}
+
+.container{
+    margin:auto;
+    
+}
+
+p{
+    margin:auto;S
 }

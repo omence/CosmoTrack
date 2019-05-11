@@ -101,7 +101,7 @@ namespace CosmoTrack.Controllers
 
                 return View(rvm);
             }
-            ModelState.AddModelError("Email", "An account with associated with this email address already exists, please login or create your account with another email");
+            ModelState.AddModelError("Email", "An account associated with this email address already exists, please login or create your account with another email");
 
             return View(rvm);
            
