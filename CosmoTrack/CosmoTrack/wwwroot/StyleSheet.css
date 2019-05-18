@@ -1,8 +1,16 @@
 ﻿html {
-   align-content:center;
+    background-color:#f5f5f5;
+   align-content:flex-start;
+   text-align:center;
 }
 
-
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: +100;
+    box-shadow: 0 5px 5px -2px rgba(0,0,0,.2);
+}
 
 li {
     padding: 8px;
@@ -14,7 +22,7 @@ a {
 }
 
     a:hover, a:focus {
-        color: red;
+        color: white;
         text-decoration: none;
         outline: none;
     }
@@ -24,20 +32,34 @@ a {
     font-weight:bold;
 
 }
+
+
+.container {
+    margin: auto;
+    text-align: center;
+}
+
 p {
-    width: 200px;
+    margin: auto;
+    width: 400px;
+    text-align: center;
+}
+
+.review {
+    margin:10px;
 }
 .card {
-    background-color: azure;
-    
-    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+
+}
+.closeReview, .seeReview {
+    cursor: pointer;
 }
 
-.container{
-    margin:auto;
-    
-}
 
-p{
-    margin:auto;S
+@media screen and (max-width: 576px) {
+    .container{
+        width:95%;
+    }
 }

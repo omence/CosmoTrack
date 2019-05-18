@@ -1,49 +1,82 @@
 ﻿@model IEnumerable<CosmoTrack.Models.Review>
+@using Microsoft.AspNetCore.Identity
+@using CosmoTrack.Models
+
+@inject SignInManager<ApplicationUser> signInManager
 @{
     Layout = "_Layout";
 }
-    
 
-        <div class="container mt-5 row">
-            @foreach (var item in Model)
-            {
+<br />
+<br />
+<br />
+<br />
+@foreach (var item in Model)
+{
+    <div class="container mt-2 " style="width: 45rem;">
+        <div class="card-deck">
 
-                <div class="card-group">
+            <div class="card card text-center mr-5 mb-5 row">
 
-                    <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
+                <div class="card-body text-center parent col-sm">
 
-                        <div class="card-body">
+                    <h5 class="card-header" style="background-color: #f5f5f5;">
+                        @item.NickName
 
-                            <h5 class="card-header">
-                                @item.NickName
-                            </h5>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <form asp-action="Follow">
+                                <input type="hidden" name="nickName" value="@item.NickName" />
+                                <button type="submit">FOLLOW</button>
+                            </form>
+                        }
+                    </h5>
 
-                            <img src="@item.UserProduct.ImageURL" class="img-fluid" />
+                    <h3 class="card-title mt-2">
+                        @item.UserProduct.Brand
+                    </h3>
 
-                            <h3 class="card-title mt-2">
-                                @item.UserProduct.Brand
-                            </h3>
-
-                            <h5 class="card-subtitle mt-2">
-                                @item.UserProduct.Name
-                            </h5>
-
-                            <p class="card-text mt-3">
-                                @item.UserReview
-                            </p>
-
-                            @if (item.VideoReviewURL != null)
-                            {
-                                <a src="@item.VideoReviewURL">
-                                    Video Review
-                                </a>
-                            }
+                    <img src="@item.UserProduct.ImageURL" class="img-fluid" />
 
 
-                        </div>
-                    </div>
+
+                    <h5 class="card-subtitle mt-2">
+                        @item.UserProduct.Name
+                    </h5>
+                    <br />
+
+                    <p class="seeReview">Review</p>
+
 
                 </div>
-            }
+                <div class="review" style="background-color: #f5f5f5;">
+                    <a><p class="closeReview">CLOSE</p></a>
+                    <br />
+                    @if (item.VideoReviewURL != null)
+                    {
+                        if (item.VideoReviewURL.Contains("https://www.youtube.com/watch?v="))
+                        {
+                            item.VideoReviewURL = item.VideoReviewURL.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+
+                            <iframe width="560" height="315" src="@item.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        }
+
+                        if (item.VideoReviewURL.Contains("https://youtu.be/"))
+                        {
+                            item.VideoReviewURL = item.VideoReviewURL.Replace("https://youtu.be/", "https://www.youtube.com/embed/");
+
+                            <iframe width="560" height="315" src="@item.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        }
+                    }
+                    <br />
+                    <p class="card-text mt-3 ">
+                        @item.UserReview
+                    </p>
+                </div>
+            </div>
+
         </div>
 
+
+    </div>
+}

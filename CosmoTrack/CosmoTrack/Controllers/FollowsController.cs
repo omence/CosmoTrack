@@ -45,26 +45,20 @@ namespace CosmoTrack.Controllers
             return View(follow);
         }
 
-        // GET: Follows/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Follows/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FollowerID,FollowingID")] Follow follow)
+        public async Task<IActionResult> Create(Follow follow)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(follow);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
-            return View(follow);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Follows/Edit/5
