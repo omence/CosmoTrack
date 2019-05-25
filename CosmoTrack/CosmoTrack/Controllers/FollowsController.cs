@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CosmoTrack.Data;
 using CosmoTrack.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CosmoTrack.Controllers
 {
@@ -16,15 +17,27 @@ namespace CosmoTrack.Controllers
     {
         private readonly CosmoTrackDbContext _context;
 
-        public FollowsController(CosmoTrackDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        private readonly ApplicationDbContext _context2;
+
+        public FollowsController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2)
         {
             _context = context;
+
+            _userManager = userManager;
+
+            _context2 = context2;
         }
 
         // GET: Follows
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Follows.ToListAsync());
+            var userId = _userManager.GetUserId(User);
+
+            var user = _context2.Users.FirstOrDefault(u => u.Id == userId);
+
+            return View(await _context.Follows.Where(f => f.FollowerID == user.NickName).ToListAsync());
         }
 
         // GET: Follows/Details/5

@@ -30,7 +30,7 @@ namespace CosmoTrack.Controllers
         {
             var userId = _userManager.GetUserId(User);
 
-            return View(await _context.UserJournals.Where(j => j.UserID == userId).ToListAsync());
+            return View(await _context.UserJournals.Where(j => j.UserID == userId).OrderByDescending(x => x.DateCreated).ToListAsync());
         }
 
         // GET: UserJournals/Details/5

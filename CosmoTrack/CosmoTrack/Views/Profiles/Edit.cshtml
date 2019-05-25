@@ -2,30 +2,28 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Edit";
 }
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="card card text-center mr-5 mb-5 row">
 
-<h1>Edit</h1>
-
-<h4>Profile</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
                 <input type="hidden" asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProfileImageURL" class="control-label"></label>
+                <label asp-for="ProfileImageURL" class="control-label">Profile Image URL</label>
                 <input asp-for="ProfileImageURL" class="form-control" />
                 <span asp-validation-for="ProfileImageURL" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentRegiment" class="control-label"></label>
-                <input asp-for="CurrentRegiment" class="form-control" />
+                <label asp-for="CurrentRegiment" class="control-label">Current Routine</label>
+                <textarea asp-for="CurrentRegiment" class="form-control" rows="5" cols="80"></textarea>
                 <span asp-validation-for="CurrentRegiment" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -34,14 +32,11 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-outline-secondary" />
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 
