@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using CosmoTrack.Data;
 using CosmoTrack.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CosmoTrack.Controllers
 {
@@ -19,13 +23,17 @@ namespace CosmoTrack.Controllers
 
         private readonly ApplicationDbContext _context2;
 
-        public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2)
+        private readonly IHostingEnvironment _he;
+
+        public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2, IHostingEnvironment he)
         {
             _context = context;
 
             _userManager = userManager;
 
             _context2 = context2;
+
+            _he = he;
         }
 
         // GET: Profiles
@@ -161,6 +169,32 @@ namespace CosmoTrack.Controllers
         private bool ProfileExists(int id)
         {
             return _context.Profiles.Any(e => e.ID == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile image)
+        {
+
+          if(image != null)
+            {
+                var fileName = Path.Combine(_he.WebRootPath, Path.GetFileName(image.FileName));
+
+                image.CopyTo(new FileStream(fileName, FileMode.Create));
+
+                var UserID = _userManager.GetUserId(User);
+
+                var user = _context2.Users.FirstOrDefault(u => u.Id == UserID);
+
+                var profile = await _context.Profiles.FirstOrDefaultAsync(p => p.UserName == user.NickName);
+
+                profile.ProfileImageURL = "/" + Path.GetFileName(image.FileName);
+
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View("Index");
         }
     }
 }

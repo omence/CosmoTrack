@@ -9,7 +9,15 @@
 <br />
 <div class="container">
     <div class="card card text-center mr-5 mb-5 row">
+        <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
+            
+                    <p>Upload Image</p>
+                    <input type="file" name="image" class="btn btn-outline-secondary" >
 
+          
+                    <input type="submit" value="Upload" class="btn btn-outline-secondary">
+           
+        </form>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -17,8 +25,7 @@
                 <input type="hidden" asp-for="UserName" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="ProfileImageURL" class="control-label">Profile Image URL</label>
-                <input asp-for="ProfileImageURL" class="form-control" />
+                <input type="hidden" asp-for="ProfileImageURL" class="form-control" />
                 <span asp-validation-for="ProfileImageURL" class="text-danger"></span>
             </div>
             <div class="form-group">
