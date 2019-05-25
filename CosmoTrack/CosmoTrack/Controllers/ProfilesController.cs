@@ -14,25 +14,28 @@ namespace CosmoTrack.Controllers
     public class ProfilesController : Controller
     {
         private readonly CosmoTrackDbContext _context;
-        private UserManager<ApplicationUser> _userManager;
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ApplicationDbContext _context2;
 
         public ProfilesController(CosmoTrackDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext context2)
         {
             _context = context;
-            _context2 = context2;
+
             _userManager = userManager;
+
+            _context2 = context2;
         }
 
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
+            var UserID = _userManager.GetUserId(User);
 
-            var userId = _userManager.GetUserId(User);
+            var user = _context2.Users.FirstOrDefault(u => u.Id == UserID);
 
-            var user = await _context2.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
-            return View(_context.Profiles.FirstOrDefault(p => p.UserName == user.NickName));
+            return View(await _context.Profiles.FirstOrDefaultAsync(p => p.UserName == user.NickName));
         }
 
         // GET: Profiles/Details/5

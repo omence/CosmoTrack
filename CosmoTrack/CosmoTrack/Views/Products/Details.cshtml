@@ -4,111 +4,105 @@
     Layout = "_Layout";
     ViewData["Title"] = "Details";
 }
+<br />
+<br />
+<br />
+<div class="container mt-5 row">
+    <div class="card-deck col">
 
-<h1>Details</h1>
+        <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
 
-<div>
-    <h4>Product</h4>
-    <hr />
+            <div class="card-body text-center">
+                <h5 class="card-header" style="background-color: #E6E6FA; align-content:center">
+                    @Model.Brand
 
-    <dd class="col-sm-10">
-        <img src="@Model.ImageURL" />
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Brand)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Brand)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Price)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Price)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Ingredients)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Ingredients)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Description)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Description)
-    </dd>
-@if (Model.HasReview == true)
-{
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Reviews)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Reviews)
-    </dd>
-}
+                </h5>
+
+                <img src="@Model.ImageURL" class="img-fluid" />
+
+                <h3 class="card-title mt-2">
+                    @Model.Name
+                </h3>
+
+                <h3 class="card-title mt-2">
+                    <p>$@Model.Price</p>
+                </h3>
+
+                <p class="card-title mt-2">
+                    @Model.Ingredients
+                </p>
+
+                <p class="card-title mt-2">
+                    @Model.Description
+                </p>
+                <br />
+                @if (Model.HasReview == true)
+                {
+                    <h2>Review</h2>
+                    <h5>
+                        @Model.Reviews.Rating
+                    </h5>
+                    <h3 class="card-title mt-2">
+                        @Model.Reviews.UserReview
+                    </h3>
+                    <br />
+                    @if (Model.Reviews.VideoReviewURL != null)
+                    {
+                        if (Model.Reviews.VideoReviewURL.Contains("https://www.youtube.com/watch?v="))
+                        {
+                            Model.Reviews.VideoReviewURL = Model.Reviews.VideoReviewURL.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+
+                            <iframe width="560" height="315" src="@Model.Reviews.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        }
+
+
+                        @if (Model.Reviews.VideoReviewURL.Contains("https://youtu.be/"))
+                        {
+                            Model.Reviews.VideoReviewURL = Model.Reviews.VideoReviewURL.Replace("https://youtu.be/", "https://www.youtube.com/embed/");
+
+                            <iframe width="560" height="315" src="@Model.Reviews.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        }
+                    }
+                    <br />
+                    @if (Model.HasReview == false)
+                    {
+                        <h2>Write a Review</h2>
+                        <form asp-action="Review">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    Make Review Public
+                                    <input class="form-check-input" type="checkbox" name="MakePublic" value="true" />
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label Name="Rating" class="control-label">Product Rating 1-5</label>
+                                <input Name="Rating" class="form-control" />
+                                <span Name="Rating" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label Name="UserReview" class="control-label">Write a Review</label>
+                                <textarea Name="UserReview" class="form-control" type="" rows="5" cols="80"></textarea>
+                                <span Name="UserReview" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label Name="VideoReviewURL" class="control-label">Link to a Video Review</label>
+                                <input Name="VideoReviewURL" class="form-control" />
+                                <span Name="VideoReviewURL" class="text-danger"></span>
+                            </div>
+                            <input Name="id" value="@Model.ID" type="hidden" class="form-control" />
+                            <div class="form-group">
+                                <input type="submit" value="Review" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    }
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+
 
 </div>
-@if (Model.HasReview == false)
-{
-<div class="col-md-4">
-    <form asp-action="Review">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                Make Review Public
-                <input class="form-check-input" type="checkbox" name="MakePublic" value="true"/>
-            </label>
-        </div>
-        <div class="form-group">
-            <label Name="Rating" class="control-label">Product Rating 1-5</label>
-            <input Name="Rating" class="form-control" />
-            <span Name="Rating" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="UserReview" class="control-label">Write a Review</label>
-            <textarea Name="UserReview"  class="form-control" type="" rows="5" cols="80"></textarea>
-            <span Name="UserReview" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="VideoReviewURL" class="control-label">Link to a Video Review</label>
-            <input Name="VideoReviewURL" class="form-control" />
-            <span Name="VideoReviewURL" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="ImageOneURL" class="control-label">Upload or Link to Image</label>
-            <input Name="ImageOneURL" class="form-control" />
-            <span Name="ImageOneURL" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="ImageTwoURL" class="control-label">Upload or Link to Image</label>
-            <input Name="ImageTwoURL" class="form-control" />
-            <span Name="ImageTwoURL" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="ImageThreeURL" class="control-label">Upload or Link to Image</label>
-            <input Name="ImageThreeURL" class="form-control" />
-            <span Name="ImageThreeURL" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label Name="ImageFourURL" class="control-label">Upload or Link to Image</label>
-            <input Name="ImageFourURL" class="form-control" />
-            <span Name="ImageFourURL" class="text-danger"></span>
-        </div>
-            <input Name="id" value="@Model.ID" type="hidden" class="form-control" />
-        <div class="form-group">
-            <input type="submit" value="Review" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
-}
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

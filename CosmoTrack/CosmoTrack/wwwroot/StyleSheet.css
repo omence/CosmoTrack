@@ -1,7 +1,18 @@
-﻿html {
-    background-color:#f5f5f5;
-   align-content:flex-start;
-   text-align:center;
+﻿@import url('https://fonts.googleapis.com/css?family=Ramabhadra&display=swap');
+
+.imgSize{
+    width:300px;
+    height:auto;
+}
+html {
+    background-color: #f5f5f5;
+    align-content: flex-start;
+    text-align: center;
+}
+body {
+    background-color: #f5f5f5;
+    font-size: x-large;
+    font-family: 'Ramabhadra', sans-serif;
 }
 
 .navbar {
@@ -12,6 +23,17 @@
     box-shadow: 0 5px 5px -2px rgba(0,0,0,.2);
 }
 
+.form-inline {
+
+    position: fixed;
+    top: 12px;
+    left:75px;
+    width: 100%;
+    z-index: +100;
+}
+.navbar-brand{
+    font-size:x-large;
+}
 li {
     padding: 8px;
 }
@@ -35,6 +57,7 @@ a {
 
 
 .container {
+    align-self:center;
     margin: auto;
     text-align: center;
 }
@@ -57,7 +80,16 @@ p {
     cursor: pointer;
 }
 
+.profilePic{
+    width:50px;
+    height:auto;
+}
 
+.searchBar {
+    width:400px;
+    position: fixed;
+    left:400px;
+}
 @media screen and (max-width: 576px) {
     .container{
         width:95%;

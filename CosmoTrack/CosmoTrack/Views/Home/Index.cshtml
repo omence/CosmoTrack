@@ -10,47 +10,54 @@
 <br />
 <br />
 <br />
-<br />
+
+<div class="container mt-15">
+    <form class="form-inline searchBar mb-5">
+        <input size="35" class="form-control mr-lg-2" type="search" placeholder="Search Reviews by Brand, Name, ingridient ect." aria-label="Search">
+        <button class="btn btn-outline-secondary mr-0 ml-10 my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+
 @foreach (var item in Model)
 {
     <div class="container mt-2 " style="width: 45rem;">
         <div class="card-deck">
 
-            <div class="card card text-center mr-5 mb-5 row">
+            <div class="card card text-center mr-5 mb-1 row">
 
                 <div class="card-body text-center parent col-sm">
 
-                    <h5 class="card-header" style="background-color: #f5f5f5;">
+                    <h2 class="card-header" style="background-color: #E6E6FA;">
                         @item.NickName
 
                         @if (signInManager.IsSignedIn(User))
                         {
                             <form asp-action="Follow">
                                 <input type="hidden" name="nickName" value="@item.NickName" />
-                                <button type="submit">FOLLOW</button>
+                                <button type="submit" class="btn btn-outline-secondary mt-2">Follow Reviewer</button>
                             </form>
                         }
-                    </h5>
+                    </h2>
 
-                    <h3 class="card-title mt-2">
+                    <h2 class="card-title mt-2">
                         @item.UserProduct.Brand
-                    </h3>
+                    </h2>
 
-                    <img src="@item.UserProduct.ImageURL" class="img-fluid" />
+                    <img src="@item.UserProduct.ImageURL" class="img-fluid imgSize" />
 
 
 
-                    <h5 class="card-subtitle mt-2">
+                    <h2 class="card-subtitle mt-2">
                         @item.UserProduct.Name
-                    </h5>
+                    </h2>
                     <br />
 
-                    <p class="seeReview">Review</p>
+                    <button type="button" class="btn btn-outline-secondary seeReview">See Review</button>
 
 
                 </div>
-                <div class="review" style="background-color: #f5f5f5;">
-                    <a><p class="closeReview">CLOSE</p></a>
+                <div class="review">
+                    <button type="button" class="btn btn-outline-secondary closeReview mt-1 mb-1">Close Review</button>
                     <br />
                     @if (item.VideoReviewURL != null)
                     {

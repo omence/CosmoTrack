@@ -11,9 +11,9 @@
 <br />
 <br />
 <br />
-<br />
+
 <p>
-    <a asp-action="Create">Add a Product</a>
+    <a asp-action="Create" class="btn btn-outline-secondary">Add a Product</a>
 </p>
 
 <div class="container mt-5 row">
@@ -22,26 +22,26 @@
 
         <div class="card-deck col">
 
-            <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
+            <div class="card text-center mr-5 mb-5" style="width: 18rem;">
 
                 <div class="card-body text-center">
+                    <h5 class="card-header" style="background-color: #E6E6FA; align-content:center">
 
+                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-outline-secondary mt-2">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-outline-secondary mt-2">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-secondary mt-2">Delete</a>
 
-                    <img src="@item.ImageURL" class="img-fluid" />
-
+                    </h5>
                     <h3 class="card-title mt-2">
                         @item.Brand
                     </h3>
+                    <img src="@item.ImageURL" class="img-fluid" />
+
+
 
                     <h5 class="card-subtitle mt-2">
                         @item.Name
                     </h5>
-                    <br />
-                    <div class="crud">
-                        <p><a asp-action="Edit" asp-route-id="@item.ID">Edit</a></p>
-                        <p><a asp-action="Details" asp-route-id="@item.ID">Details</a></p>
-                        <p><a asp-action="Delete" asp-route-id="@item.ID">Delete</a></p>
-                    </div>
                 </div>
             </div>
 

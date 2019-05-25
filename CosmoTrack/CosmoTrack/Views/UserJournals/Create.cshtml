@@ -5,29 +5,30 @@
 @{
     ViewData["Title"] = "Create";
 }
+<br />
+<br />
+<br />
+<div class="container mt-5 row">
+    <div class="card-deck col">
 
-<h1>Create</h1>
+        <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
 
-<h4>UserJournal</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="JournalEntry" class="control-label"></label>
-                <textarea id="RichTextEdit" asp-for="JournalEntry" class="form-control" type="" cols="100" rows="5"></textarea>
-                <span asp-validation-for="JournalEntry" class="text-danger"></span>
+            <div class="card-body text-center">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="JournalEntry" class="control-label"></label>
+                        <textarea id="RichTextEdit" asp-for="JournalEntry" class="form-control" type="" cols="100" rows="5"></textarea>
+                        <span asp-validation-for="JournalEntry" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-secondary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 

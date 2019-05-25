@@ -7,6 +7,7 @@ using CosmoTrack.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using CosmoTrack.Controllers;
 
 namespace CosmoTrack.Controllers
 {
@@ -52,7 +53,7 @@ namespace CosmoTrack.Controllers
 
             follow.FollowerID = thisUserNickName.NickName;
 
-            FollowsController followsController = new FollowsController(_context);
+            FollowsController followsController = new FollowsController(_context, _userManager, _context2);
 
             await followsController.Create(follow);
 
