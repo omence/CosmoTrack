@@ -9,30 +9,34 @@
 <p>
     <a asp-action="Create"  class="btn btn-outline-secondary">Add a Journal Entry</a>
 </p>
-@foreach (var item in Model)
-{
 <div class="container mt-5 row">
-    <div class="card-deck col">
+    @foreach (var item in Model)
+    {
 
-        <div class="card card text-center mr-5 mb-5" style="width: 18rem;">
+        <div class="card-deck col">
 
-            <div class="card-body text-center">
-                <h3 class="card-header" style="background-color: #E6E6FA;">
+            <div class="card text-center mr-5 mb-5" style="width: 18rem;">
 
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </h3>
-                <br />
-                <h3>
-                    @item.DateCreated
-                </h3>
-                <br />
-                <h3>
-                    @item.JournalEntry
-                </h3>
+                <div class="card-body text-center">
+                    <h3 class="card-header" style="background-color: #E6E6FA;">
+
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </h3>
+                    <br />
+                    <h3>
+                        Created: @item.DateCreated
+                    </h3>
+                    <br />
+    
+                       
+                    <h5>@item.JournalEntry</h5>
+                   
+                  
+                </div>
             </div>
         </div>
-    </div>
-    </div>
+
 
     }
+</div>

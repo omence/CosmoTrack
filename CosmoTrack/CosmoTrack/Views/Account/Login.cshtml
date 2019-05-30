@@ -9,26 +9,33 @@
 <br />
 <br />
 <br />
-<div id="login">
+<div class="container mt-2 " style="width: 45rem;">
+    <div class="card-deck">
 
-    <form method="post">
+        <div class="card card text-center mr-5 mb-1 row">
 
-        <div asp-validation-summary="All"></div>
+            <div class="card-body text-center parent col-sm">
+                <div id="login">
 
-        <div class="boxes">
-            <label asp-for="Email">Email:</label>
-            <input asp-for="Email" />
-            <span asp-validation-for="Email"></span>
+                    <form method="post">
+
+                        <div asp-validation-summary="All"></div>
+
+                        <div class="boxes">
+                            <input asp-for="Email" placeholder="Email Address"/>
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <br />
+                        <div class="boxes">
+                            <input asp-for="Password" placeholder="Password"/>
+                            <span asp-validation-for="Password"></span>
+                        </div>
+
+                        <button type="submit" id="login-btn" class="btn btn-outline-secondary mt-2">Login</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="boxes">
-
-            <label asp-for="Password">Password:</label>
-            <input asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-
-        <button type="submit" id="login-btn">Login</button>
-
-    </form>
+    </div>
 </div>
