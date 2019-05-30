@@ -32,6 +32,8 @@ namespace CosmoTrack.Controllers
             var userId = _userManager.GetUserId(User);
 
             return View(await _context.Products.Where(p => p.UserID == userId).ToListAsync());
+
+
         }
 
         // GET: Products/Details/5
@@ -66,6 +68,7 @@ namespace CosmoTrack.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,ImageURL,Brand,Name,Price,Ingredients,Description")] Product product)
         {
+            product.Tags = $"{product.Brand} {product.Name} {product.Brand} {product.Ingredients}";
 
             product.UserID = _userManager.GetUserId(User);
             if (ModelState.IsValid)
@@ -101,6 +104,8 @@ namespace CosmoTrack.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,ImageURL,Brand,Name,Price,Ingredients,Description")] Product product)
         {
+            product.Tags = $"{product.Brand} {product.Name} {product.Brand} {product.Ingredients}";
+
             if (id != product.ID)
             {
                 return NotFound();
@@ -171,6 +176,7 @@ namespace CosmoTrack.Controllers
             var user = _context2.Users.FirstOrDefault(u => u.Id == userId);
 
             Review review = new Review();
+            review.DateCreated = DateTime.Now;
             review.ProductID = id;
             review.NickName = user.NickName;
             review.MakePublic = MakePublic;

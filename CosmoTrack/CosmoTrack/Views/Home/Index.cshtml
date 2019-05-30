@@ -12,23 +12,23 @@
 <br />
 
 <div class="container mt-15">
-    <form class="form-inline searchBar mb-5">
-        <input size="35" class="form-control mr-lg-2" type="search" placeholder="Search Reviews by Brand, Name, ingridient ect." aria-label="Search">
-        <button class="btn btn-outline-secondary mr-0 ml-10 my-2 my-sm-0" type="submit">Search</button>
+    <form asp-action="Index" class="form-inline searchBar mb-5">
+        <input size="35" name="SearchString" class="form-control mr-lg-2" type="search" placeholder="Search Reviews by Brand, Name, ingridient ect." aria-label="Search">
+        <button class="btn btn-outline-secondary mr-0 ml-10 my-2 my-sm-0" type="submit" value="Search">Search</button>
     </form>
 </div>
 
 @foreach (var item in Model)
 {
-    <div class="container mt-2 " style="width: 45rem;">
+    <div class="container mt-1 " style="width: 45rem;">
         <div class="card-deck">
 
-            <div class="card card text-center mr-5 mb-1 row">
+            <div class="card card text-center mr-5 mb-0 row">
 
                 <div class="card-body text-center parent col-sm">
-
-                    <h2 class="card-header" style="background-color: #E6E6FA;">
-                        @item.NickName
+                    <h6>@item.DateCreated</h6>
+                    <h3 class="card-header" style="background-color: #E6E6FA;">
+                        Posted by: @item.NickName
 
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -37,7 +37,7 @@
                                 <button type="submit" class="btn btn-outline-secondary mt-2">Follow Reviewer</button>
                             </form>
                         }
-                    </h2>
+                    </h3>
 
                     <h2 class="card-title mt-2">
                         @item.UserProduct.Brand

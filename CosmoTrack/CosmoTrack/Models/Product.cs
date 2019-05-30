@@ -29,6 +29,8 @@ namespace CosmoTrack.Models
 
         public DateTime DateCreated { get; set; }
 
+        public string Tags { get; set; }
+
         //Nav props
         public ICollection<ProductJournal> ProductJournals { get; set; }
 

@@ -6,75 +6,56 @@
 <br />
 <br />
 <br />
-<section class="hero is-small">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-size-1">
-                Sign Up Now
-            </h1>
+<div class="container mt-2 " style="width: 45rem;">
+    <div class="card-deck">
+
+        <div class="card card text-center mr-5 mb-1 row">
+
+            <div class="card-body text-center parent col-sm">
+                <section class="pads-xs">
+                    <div class="container">
+                        @Html.ValidationSummary()
+                        <form method="post">
+
+
+                            <div class="field">
+                                    <input asp-for="NickName" class="input" type="text" placeholder="Name" />
+                                <span asp-validation-for="NickName" class="is-danger"></span>
+                            </div>
+                            <br />
+                            <div class="field">
+                                    <input asp-for="Email" class="input" type="text" placeholder="Email Address" />
+                                <span asp-validation-for="Email" class="is-danger"></span>
+                            </div>
+                            <br />
+                            <div class="field">
+                                    <input asp-for="Password" class="input" type="password" placeholder="Pick a strong password" />
+                                <p class="help is-danger">
+                                    <span asp-validation-for="Password"></span>
+                                </p>
+                            </div>
+                            <br />
+                            <div class="field">
+                                    <input asp-for="ConfirmPassword" class="input" type="password" placeholder="Confirm password" />
+                                <p class="help is-danger">
+                                    <span asp-validation-for="ConfirmPassword"></span>
+                                </p>
+                            </div>
+
+                            <div class="buttons is-centered">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button class="btn btn-outline-secondary mt-2" type="submit">Submit</button>
+                                    </div>
+                                    <div class="control">
+                                        <button class="btn btn-outline-secondary mt-2">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
-</section>
-
-<section class="pads-xs">
-    <div class="container">
-        @Html.ValidationSummary()
-        <form method="post">
-
-
-            <div class="field">
-                <label asp-for="NickName" class="label">User Name</label>
-                <div class="control">
-                    <input asp-for="NickName" class="input" type="text" placeholder="Nick Name" />
-                </div>
-                <span asp-validation-for="NickName" class="is-danger"></span>
-            </div>
-
-
-            <div class="field">
-                <label asp-for="Email" class="label">Email</label>
-                <div class="control">
-                    <input asp-for="Email" class="input" type="text" placeholder="Last Name" />
-                </div>
-                <span asp-validation-for="Email" class="is-danger"></span>
-            </div>
-
-            <div class="field">
-                <label asp-for="Password" class="label">Password</label>
-                <div class="control has-icons-left">
-                    <input asp-for="Password" class="input" type="password" placeholder="Pick a strong password" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-key"></i>
-                    </span>
-                </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="Password"></span>
-                </p>
-            </div>
-
-            <div class="field">
-                <label asp-for="ConfirmPassword" class="label">Confirm Password</label>
-                <div class="control has-icons-left has-icons-right">
-                    <input asp-for="ConfirmPassword" class="input" type="password" placeholder="Confirm password" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-check-circle"></i>
-                    </span>
-                </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="ConfirmPassword"></span>
-                </p>
-            </div>
-
-            <div class="buttons is-centered">
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-success" type="submit">Submit</button>
-                    </div>
-                    <div class="control">
-                        <button class="button is-text">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
+</div>

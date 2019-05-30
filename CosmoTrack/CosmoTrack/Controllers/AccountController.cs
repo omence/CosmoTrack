@@ -129,7 +129,7 @@ namespace CosmoTrack.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Profiles");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
