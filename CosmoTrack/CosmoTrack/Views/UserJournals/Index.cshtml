@@ -18,21 +18,18 @@
             <div class="card text-center mr-5 mb-5" style="width: 18rem;">
 
                 <div class="card-body text-center">
+                    <h6>@item.DateCreated</h6>
                     <h3 class="card-header" style="background-color: #E6E6FA;">
 
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                     </h3>
                     <br />
-                    <h3>
-                        Created: @item.DateCreated
-                    </h3>
-                    <br />
-    
-                       
-                    <h5>@item.JournalEntry</h5>
-                   
-                  
+
+                    <div class="journalTxt">
+                        <h5>@item.JournalEntry</h5>
+                    </div>
+
                 </div>
             </div>
         </div>

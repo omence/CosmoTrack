@@ -21,11 +21,11 @@
 @foreach (var item in Model)
 {
     <div class="container mt-1 " style="width: 45rem;">
-        <div class="card-deck">
+        <div class="card-deck col">
 
-            <div class="card card text-center mr-5 mb-0 row">
+            <div class="card text-center mr-5 mb-1" style="width: 18rem;">
 
-                <div class="card-body text-center parent col-sm">
+                <div class="card-body text-center parent">
                     <h6>@item.DateCreated</h6>
                     <h3 class="card-header" style="background-color: #E6E6FA;">
                         Posted by: @item.NickName
@@ -72,13 +72,21 @@
                         {
                             item.VideoReviewURL = item.VideoReviewURL.Replace("https://youtu.be/", "https://www.youtube.com/embed/");
 
-                            <iframe width="560" height="315" src="@item.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe width="90%" height="auto" src="@item.VideoReviewURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         }
                     }
                     <br />
-                    <p class="card-text mt-3 ">
-                        @item.UserReview
-                    </p>
+
+                    <div class="reviewTxt text-center">
+
+                        <h5 class="card-text mt-3 ">
+                            @item.UserReview
+                            <h5 />
+
+                    </div>
+
                 </div>
             </div>
 
