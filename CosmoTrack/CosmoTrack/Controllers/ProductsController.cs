@@ -27,11 +27,35 @@ namespace CosmoTrack.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
             var userId = _userManager.GetUserId(User);
 
-            return View(await _context.Products.Where(p => p.UserID == userId).ToListAsync());
+            var products = await _context.Products.Where(p => p.UserID == userId).ToListAsync();
+
+            foreach(var p in products)
+            {
+                p.Reviews = await _context.Reviews.FirstOrDefaultAsync(r => r.ProductID == p.ID);
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            { 
+
+                var products2 = products.Where(p => p.Tags.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+                var splitSearch = SearchString.Split(" ");
+
+                foreach (var i in splitSearch)
+                {
+                    var temp = products.Where(r => r.Tags.IndexOf(i.ToString(), StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+                    products2 = products2.Union(temp).ToList();
+
+                }
+
+                return View(products2);
+            }
+            return View(products);
 
 
         }

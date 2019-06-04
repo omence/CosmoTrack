@@ -71,13 +71,14 @@ a {
 }
 
 p {
+    width:500px;
     margin: auto;
-    width: 400px;
     text-align: center;
 }
 
 .review {
-    margin:10px;
+    border-top: 1px solid black;
+    margin: 10px;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -99,6 +100,19 @@ p {
     position: fixed;
     left:100px;
     top:5px;
+}
+
+.journalTxt {
+    border-radius:10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.reviewTxt {
+
+    white-space: normal;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 @media screen and (max-width: 576px) {
     .container{

@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<CosmoTrack.Models.Product>
-<header>
-    <h1></h1>
-
-</header>
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Index";
 }
-
+    <div class="container mt-15">
+        <form asp-action="Index" class="form-inline searchBar mb-5">
+            <input size="35" name="SearchString" class="form-control mr-lg-2" type="search" placeholder="Search Reviews by Brand, Name, ingridient ect." aria-label="Search">
+            <button class="btn btn-outline-secondary mr-0 ml-10 my-2 my-sm-0" type="submit" value="Search">Search</button>
+        </form>
+    </div>
 <br />
 <br />
 <br />
@@ -46,7 +47,6 @@
             </div>
 
         </div>
-
     }
 </div>
 
