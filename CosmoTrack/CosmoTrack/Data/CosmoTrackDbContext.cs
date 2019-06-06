@@ -26,5 +26,12 @@ namespace CosmoTrack.Data
         public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<Image> Images { get; set; }
+
+        [DbFunction(FunctionName = "SOUNDEX", Schema = "")]
+        public static string SoundsLike(string SearchString)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }
