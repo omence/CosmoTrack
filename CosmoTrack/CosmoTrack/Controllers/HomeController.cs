@@ -27,7 +27,9 @@ namespace CosmoTrack.Controllers
 
             _context2 = context2;
         }
-        public async Task<IActionResult> Index(string SearchString)
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             var reviews = _context.Reviews.Where(r => r.MakePublic == true).OrderByDescending(x => x.DateCreated).ToList();
 
@@ -36,11 +38,21 @@ namespace CosmoTrack.Controllers
                 item.UserProduct = _context.Products.FirstOrDefault(p => p.ID == item.ProductID);
             }
             
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                var reviews1 = reviews.Where(r => r.NickName.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
-                var reviews2 = reviews.Where(r => r.UserProduct.Tags.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            return View(reviews);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string SearchString)
+        {
+           
+                var reviews1 = _context.Reviews.Where(r => 
+                CosmoTrackDbContext.SoundsLike(r.NickName) == 
+                CosmoTrackDbContext.SoundsLike(SearchString)).ToList();
+
+                var reviews2 = _context.Reviews.Where(r => 
+                CosmoTrackDbContext.SoundsLike(r.UserProduct.Tags) == 
+                CosmoTrackDbContext.SoundsLike(SearchString)).ToList();
 
                 reviews1 = reviews1.Concat(reviews2).ToList();
 
@@ -48,16 +60,20 @@ namespace CosmoTrack.Controllers
 
                 foreach (var i in splitSearch)
                 {
-                    var temp = reviews.Where(r => r.UserProduct.Tags.IndexOf(i.ToString(), StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                    var temp = _context.Reviews.Where(r => 
+                    CosmoTrackDbContext.SoundsLike(r.UserProduct.Tags) == 
+                    CosmoTrackDbContext.SoundsLike(i.ToString())).ToList();
 
                     reviews1 = reviews1.Union(temp).ToList();
 
                 }
 
-                return View(reviews1);
+            foreach (var item in reviews1)
+            {
+                item.UserProduct = _context.Products.FirstOrDefault(p => p.ID == item.ProductID);
             }
-
-            return View(reviews);
+            return View(reviews1);
+            
         }
 
         [Authorize]
