@@ -204,7 +204,7 @@ namespace CosmoTrack.Controllers
 
           if(image != null)
             {
-                var fileName = Path.Combine(_he.WebRootPath, Path.GetFileName(image.FileName));
+                var fileName = Path.Combine($"{_he.WebRootPath}/Images", Path.GetFileName(image.FileName));
 
                 image.CopyTo(new FileStream(fileName, FileMode.Create));
 
@@ -214,7 +214,7 @@ namespace CosmoTrack.Controllers
 
                 var profile = await _context.Profiles.FirstOrDefaultAsync(p => p.UserName == user.NickName);
 
-                profile.ProfileImageURL = "/" + Path.GetFileName(image.FileName);
+                profile.ProfileImageURL = "/Images/" + Path.GetFileName(image.FileName);
 
                 _context.SaveChanges();
 
@@ -237,6 +237,11 @@ namespace CosmoTrack.Controllers
         public IActionResult Journal()
         {
             return RedirectToAction("Index", "UserJournals");
+        }
+
+        public IActionResult Community()
+        {
+            return RedirectToAction("Index", "Follows");
         }
     }
 }

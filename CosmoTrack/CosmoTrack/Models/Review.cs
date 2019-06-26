@@ -25,13 +25,6 @@ namespace CosmoTrack.Models
 
         public string VideoReviewURL { get; set; }
 
-        public string ImageOneURL { get; set; }
-
-        public string ImageTwoURL { get; set; }
-
-        public string ImageThreeURL { get; set; }
-
-        public string ImageFourURL { get; set; }
 
         public DateTime DateCreated { get; set; }
 
