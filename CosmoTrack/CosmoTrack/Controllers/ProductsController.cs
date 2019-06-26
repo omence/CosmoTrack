@@ -209,10 +209,6 @@ namespace CosmoTrack.Controllers
             review.Rating = Rating;
             review.UserReview = UserReview;
             review.VideoReviewURL = VideoReviewURL;
-            review.ImageOneURL = ImageOneURL;
-            review.ImageTwoURL = ImageTwoURL;
-            review.ImageThreeURL = ImageThreeURL;
-            review.ImageFourURL = ImageFourURL;
             review.Tags = product.Tags;
 
             

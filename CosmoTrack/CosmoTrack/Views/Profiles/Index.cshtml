@@ -11,59 +11,60 @@
 <br />
 <div class="container-fluid text-left">
     <div class="row content text-left">
-        <div class="col-sm-2 sidenav text-left">
+        <div class="col-sm-2 sidenav text-left bg-dark" style="color:white;">
 
-            <p class="text-left">You have @Model.ProductCount Products | <a asp-action="Products">Manage Products</a></p>
+            <h3 class="text-center mt-3">@Model.ProductCount Products | <a style="color:white;" asp-action="Products">Manage Products</a></h3>
             @if (Model.ProductCount > 0)
             {
                 <div>
-                    <h3>Last Three Products Added</h3>
-                    @foreach(var p in Model.Products)
+                    <h4 class="text-center">Recent Products Added:</h4>
+                    @foreach (var p in Model.Products)
                     {
-                        <p>@p.Brand: @p.Name</p>
+                        <h4 class="text-center">@p.Brand: @p.Name</h4>
                     }
                 </div>
             }
-            <p class="text-left">You have @Model.ReviewsCount Product Reviews | <a asp-action="Reviews">Manage Reviews</a></p>
+            <hr />
+            <h3 class="text-center">@Model.ReviewsCount Product Reviews | <a style="color:white;" asp-action="Reviews">Manage Reviews</a></h3>
             @if (Model.ReviewsCount > 0)
             {
-        <div>
-            <h3 class="text-left">Last Three Product Reviews Added</h3>
-            @foreach (var r in Model.Reviews)
-            {
-                <p class="text-left">@r.UserProduct.Brand: @r.UserProduct.Name  Rating: @r.Rating</p>
+                <div>
+                    <h4 class="text-center">Recent Product Reviews Added:</h4>
+                    @foreach (var r in Model.Reviews)
+                    {
+                        <h4 class="text-center">@r.UserProduct.Brand: @r.UserProduct.Name,  Rating: @r.Rating</h4>
+                    }
+
+                </div>
             }
-        </div>
-            }
-            <p class="text-left">You have @Model.JournalEntriesCount Journal Entries | <a asp-action="Journal">Manage Journal</a></p>
-            @if (Model.JournalEntriesCount > 0)
-            {
-        <div>
-            <h3 class="text-left">Last Three Journal Entries</h3>
-            @foreach (var j in Model.JournalEntries)
-            {
-                <p class="text-left">Date Created: @j.DateCreated Topic: @j.Topic</p>
-            }
-            </div>
-            }
+
         </div>
         <div class="col-sm-8 text-center" style="background-color: white;">
-            <img src="@Model.Profile.ProfileImageURL" />
+            <img src="@Model.Profile.ProfileImageURL" alt="Avatar" class="mt-5" />
             <h1 class="mt-3">Current Routine</h1>
             @Model.Profile.CurrentRegiment
             <hr>
             <form asp-action="Edit" method="get">
                 <input type="hidden" name="id" value="@Model.Profile.ID" />
-                <button type="submit" class="btn btn-outline-secondary">Edit Current Routine</button>
+                <button type="submit" class="btn btn-outline-secondary mb-3">Edit Current Routine</button>
             </form>
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+        <div class="col-sm-2 sidenav text-center bg-dark" style="color:white;">
+            <h3 class="text-center mt-3">Community | <a style="color:white;" asp-action="Community">Manage Community</a></h3>
+            <h4>You have @Model.FollowersCount users follwing you</h4>
+            <h4>You are following @Model.FollowingCount users</h4>
+            <hr style="color:white;" />
+            <h3 class="text-center">@Model.JournalEntriesCount Journal Entries | <a style="color:white;" asp-action="Journal">Manage Journal</a></h3>
+            @if (Model.JournalEntriesCount > 0)
+            {
+                <div>
+                    <h4 class="text-center">Recent Journal Entries:</h4>
+                    @foreach (var j in Model.JournalEntries)
+                    {
+                        <h4 class="text-center">Date Created: @j.DateCreated Topic: @j.Topic</h4>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>

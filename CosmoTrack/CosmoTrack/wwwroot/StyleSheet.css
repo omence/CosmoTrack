@@ -45,7 +45,7 @@ a {
 }
 
     a:hover, a:focus {
-        color: white;
+        color: yellow;
         text-decoration: none;
         outline: none;
     }
@@ -114,6 +114,19 @@ p {
     border-radius: 10px;
     border: 1px solid black;
 }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    border-radius: 50%;
+}
 @media screen and (max-width: 576px) {
     .container{
         width:95%;
@@ -123,10 +136,6 @@ p {
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
 
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
+
+ 
 
