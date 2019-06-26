@@ -31,7 +31,8 @@ namespace CosmoTrack.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var reviews = _context.Reviews.Where(r => r.MakePublic == true).OrderByDescending(x => x.DateCreated).ToList();
+            var reviews = _context.Reviews.Where(r => r.MakePublic == true)
+                .OrderByDescending(x => x.DateCreated).ToList();
 
             foreach(var item in reviews)
             {
@@ -45,14 +46,18 @@ namespace CosmoTrack.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string SearchString)
         {
-           
-                var reviews1 = _context.Reviews.Where(r => 
-                CosmoTrackDbContext.SoundsLike(r.NickName) == 
-                CosmoTrackDbContext.SoundsLike(SearchString)).ToList();
+            var reviews = _context.Reviews.Where(r => r.MakePublic == true).OrderByDescending(x => x.DateCreated).ToList();
 
-                var reviews2 = _context.Reviews.Where(r => 
-                CosmoTrackDbContext.SoundsLike(r.UserProduct.Tags) == 
-                CosmoTrackDbContext.SoundsLike(SearchString)).ToList();
+            foreach (var item in reviews)
+            {
+                item.UserProduct = _context.Products.FirstOrDefault(p => p.ID == item.ProductID);
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                var reviews1 = reviews.Where(r => r.NickName.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+                var reviews2 = reviews.Where(r => r.UserProduct.Tags.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
                 reviews1 = reviews1.Concat(reviews2).ToList();
 
@@ -60,20 +65,16 @@ namespace CosmoTrack.Controllers
 
                 foreach (var i in splitSearch)
                 {
-                    var temp = _context.Reviews.Where(r => 
-                    CosmoTrackDbContext.SoundsLike(r.UserProduct.Tags) == 
-                    CosmoTrackDbContext.SoundsLike(i.ToString())).ToList();
+                    var temp = reviews.Where(r => r.UserProduct.Tags.IndexOf(i.ToString(), StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
                     reviews1 = reviews1.Union(temp).ToList();
 
                 }
 
-            foreach (var item in reviews1)
-            {
-                item.UserProduct = _context.Products.FirstOrDefault(p => p.ID == item.ProductID);
+                return View(reviews1);
             }
-            return View(reviews1);
-            
+
+            return View(reviews);
         }
 
         [Authorize]
@@ -83,17 +84,62 @@ namespace CosmoTrack.Controllers
 
             var thisUserNickName = _context2.Users.FirstOrDefault(u => u.Id == thisUserID);
 
-            Follow follow = new Follow();
+            var alreadyFollowing = _context.Follows.FirstOrDefault(f =>
+            f.FollowerID == thisUserNickName.NickName
+            && f.FollowingID == nickName);
 
-            follow.FollowingID = nickName;
+            if (alreadyFollowing == null)
+            {
+                Follow follow = new Follow();
 
-            follow.FollowerID = thisUserNickName.NickName;
+                follow.FollowingID = nickName;
 
-            FollowsController followsController = new FollowsController(_context, _userManager, _context2);
+                follow.FollowerID = thisUserNickName.NickName;
 
-            await followsController.Create(follow);
+                FollowsController followsController = new FollowsController(_context, _userManager, _context2);
+
+                await followsController.Create(follow);
+
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("nickName", "You are already following this user");
 
             return RedirectToAction("Index");
+        }
+        
+        public async Task<IActionResult> UnFollow(string nickName)
+        {
+            var thisUserID = _userManager.GetUserId(User);
+
+            var thisUserNickName = _context2.Users.FirstOrDefault(u => u.Id == thisUserID);
+
+            var follow = _context.Follows.FirstOrDefault(f =>
+            f.FollowerID == thisUserNickName.NickName
+            && f.FollowingID == nickName);
+
+            _context.Remove(follow);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<bool> IsFollowing(string nickName)
+        {
+            var userID = _userManager.GetUserId(User);
+
+            var thisUser = _context2.Users.FirstOrDefault(u => u.Id == userID);
+
+            var follow = _context.Follows.FirstOrDefault(f =>
+            f.FollowerID == thisUser.NickName
+            && f.FollowingID == nickName);
+
+            if(follow == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

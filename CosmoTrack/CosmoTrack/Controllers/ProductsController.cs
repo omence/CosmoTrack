@@ -199,6 +199,8 @@ namespace CosmoTrack.Controllers
 
             var user = _context2.Users.FirstOrDefault(u => u.Id == userId);
 
+            Product product = await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
+
             Review review = new Review();
             review.DateCreated = DateTime.Now;
             review.ProductID = id;
@@ -211,8 +213,9 @@ namespace CosmoTrack.Controllers
             review.ImageTwoURL = ImageTwoURL;
             review.ImageThreeURL = ImageThreeURL;
             review.ImageFourURL = ImageFourURL;
+            review.Tags = product.Tags;
 
-            Product product = await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
+            
 
             product.HasReview = true;
 

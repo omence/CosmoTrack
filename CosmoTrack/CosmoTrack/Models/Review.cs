@@ -35,6 +35,8 @@ namespace CosmoTrack.Models
 
         public DateTime DateCreated { get; set; }
 
+        public string Tags { get; set; }
+
         //Nav prop
         public Product UserProduct { get; set; }
     }

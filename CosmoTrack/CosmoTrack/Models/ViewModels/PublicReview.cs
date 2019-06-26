@@ -7,12 +7,12 @@ namespace CosmoTrack.Models.ViewModels
 {
     public class PublicReview
     {
-        public string UserName { get; set; }
 
         public string ProfileImageURL { get; set; }
 
         public string UserReview { get; set; }
 
-        public Product product { get; set; }
+        public bool Following { get; set; }
+
     }
 }
