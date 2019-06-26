@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CosmoTrack.Controllers;
 using CosmoTrack.Data;
 using CosmoTrack.Models;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,7 @@ namespace CosmoTrack
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ApplicationConnection"]));
             services.AddDbContext<CosmoTrackDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
+            services.AddScoped<HomeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

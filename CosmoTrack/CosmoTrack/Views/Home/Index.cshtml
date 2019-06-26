@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<CosmoTrack.Models.Review>
 @using Microsoft.AspNetCore.Identity
 @using CosmoTrack.Models
+@using CosmoTrack.Controllers
 
 @inject SignInManager<ApplicationUser> signInManager
+
 @{
     Layout = "_Layout";
 }
@@ -32,10 +34,16 @@
 
                         @if (signInManager.IsSignedIn(User))
                         {
-                            <form asp-action="Follow">
-                                <input type="hidden" name="nickName" value="@item.NickName" />
-                                <button type="submit" class="btn btn-outline-secondary mt-2">Follow Reviewer</button>
-                            </form>
+
+                                <form asp-action="Follow">
+                                    <div class="field">
+                                        <input type="hidden" name="nickName" value="@item.NickName" />
+                                        <button type="submit" class="btn btn-outline-secondary mt-2">Follow Reviewer</button>
+                                    </div>
+                                </form>
+                            
+
+                          
                         }
                     </h3>
 
