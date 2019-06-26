@@ -44,9 +44,6 @@
             <div class="collapse navbar-collapse" id="navBar">
                 <ul class="navbar-nav ml-auto">
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Profiles" ? "active" : "")">@Html.ActionLink(User.Claims.First(c => c.Type == "NickName").Value, "Index", "Profiles")</li>
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "UserJournals" ? "active" : "")">@Html.ActionLink("Journal", "Index", "UserJournals")</li>
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Products" ? "active" : "")">@Html.ActionLink("Products", "Index", "Products")</li>
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Follows" ? "active" : "")">@Html.ActionLink("Community", "Index", "Follows")</li>
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Account" ? "active" : "")">@Html.ActionLink("Log Out", "LogOut", "Account")</li>
 
                 </ul>
@@ -62,6 +59,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script>tinymce.init({ selector: 'textarea' });</script>
     <script src="~/JavaScript/Global.js"></script>
 </body>

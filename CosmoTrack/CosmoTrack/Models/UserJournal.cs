@@ -11,6 +11,8 @@ namespace CosmoTrack.Models
 
         public string UserID { get; set; }
 
+        public string Topic { get; set; }
+
         public string JournalEntry { get; set; }
 
         public bool ViewableByFollwers { get; set; }
