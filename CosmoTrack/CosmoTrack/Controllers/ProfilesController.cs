@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using static System.Net.Mime.MediaTypeNames;
+using CosmoTrack.Models.ViewModels;
 
 namespace CosmoTrack.Controllers
 {
@@ -43,7 +44,32 @@ namespace CosmoTrack.Controllers
 
             var user = _context2.Users.FirstOrDefault(u => u.Id == UserID);
 
-            return View(await _context.Profiles.FirstOrDefaultAsync(p => p.UserName == user.NickName));
+            ProfileViewModel pvm = new ProfileViewModel();
+
+            pvm.Profile = await _context.Profiles.FirstOrDefaultAsync(p => p.UserName == user.NickName);
+
+            pvm.Products = await _context.Products.Where(u => u.UserID == UserID).Take(3).OrderByDescending(u => u.DateCreated).ToListAsync();
+
+            pvm.ProductCount = _context.Products.Where(c => c.UserID == UserID).Count();
+
+            pvm.Reviews = await _context.Reviews.Where(r => r.NickName == user.NickName).Take(3).OrderByDescending(r => r.DateCreated).ToListAsync();
+
+            foreach(var p in pvm.Reviews)
+            {
+                p.UserProduct = await _context.Products.FirstOrDefaultAsync(r => r.ID == p.ProductID);
+            }
+
+            pvm.ReviewsCount = _context.Reviews.Where(r => r.NickName == user.NickName).Count();
+
+            pvm.JournalEntries = await _context.UserJournals.Where(j => j.UserID == UserID).Take(3).OrderByDescending(j => j.DateCreated).ToListAsync();
+
+            pvm.JournalEntriesCount = _context.UserJournals.Where(j => j.UserID == UserID).Count();
+
+            pvm.FollowersCount = _context.Follows.Where(f => f.FollowingID == user.NickName).Count();
+
+            pvm.FollowingCount = _context.Follows.Where(f => f.FollowerID == user.NickName).Count();
+
+            return View(pvm);
         }
 
         // GET: Profiles/Details/5
@@ -86,6 +112,7 @@ namespace CosmoTrack.Controllers
             return View(profile);
         }
 
+        [HttpGet]
         // GET: Profiles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -107,7 +134,7 @@ namespace CosmoTrack.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,ProfileImageURL,CurrentRegiment,ViewableByFollwers")] Profile profile)
+        public async Task<IActionResult> Edit2(int id, [Bind("ID,UserName,ProfileImageURL,CurrentRegiment,ViewableByFollwers")] Profile profile)
         {
             if (id != profile.ID)
             {
@@ -134,7 +161,7 @@ namespace CosmoTrack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(profile);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Profiles/Delete/5
@@ -195,6 +222,21 @@ namespace CosmoTrack.Controllers
             }
 
             return View("Index");
+        }
+
+        public IActionResult Products()
+        {
+            return RedirectToAction("Index", "Products");
+        }
+
+        public IActionResult Reviews()
+        {
+            return RedirectToAction("Index", "Reviews");
+        }
+
+        public IActionResult Journal()
+        {
+            return RedirectToAction("Index", "UserJournals");
         }
     }
 }
